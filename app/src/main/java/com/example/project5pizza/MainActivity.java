@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //hello
+
         //ImageView chicagoStyle = (ImageView)findViewById(R.id.chicagoStyle);
         //chicagoStyle.setBackgroundResource(R.drawable.chicagopizzaimage);
     }
