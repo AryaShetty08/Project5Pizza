@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".ChicagoStyleActivity"
+            android:name=".PizzaOrderingActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
