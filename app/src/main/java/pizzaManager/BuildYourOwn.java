@@ -74,21 +74,17 @@ public class BuildYourOwn extends Pizza{
     @Override
     public double price() {
         switch (size) {
-            case SMALL -> {
+            case SMALL:
                 return Double.parseDouble(df.format(Constant.BUILD_YOUR_OWN_SMALL_PRICE.getValue()
                         + (Constant.PRICE_PER_TOPPING.getValue()*numToppings)));
-            }
-            case MEDIUM -> {
+            case MEDIUM:
                 return Double.parseDouble(df.format(Constant.BUILD_YOUR_OWN_MEDIUM_PRICE.getValue()
                         + (Constant.PRICE_PER_TOPPING.getValue()*numToppings)));
-            }
-            case LARGE -> {
+            case LARGE:
                 return Double.parseDouble(df.format(Constant.BUILD_YOUR_OWN_LARGE_PRICE.getValue()
                         + (Constant.PRICE_PER_TOPPING.getValue()*numToppings)));
-            }
-            default -> {
+            default:
                 return 0;
-            }
         }
     }
 
