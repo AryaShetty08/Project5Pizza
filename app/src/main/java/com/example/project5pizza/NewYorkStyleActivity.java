@@ -5,12 +5,12 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ChicagoStyleActivity extends AppCompatActivity {
+public class NewYorkStyleActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chicagostylepizza);
+        setContentView(R.layout.newyorkstylepizza);
 
         Button addToOrder = (Button)findViewById(R.id.addToOrder);
     }

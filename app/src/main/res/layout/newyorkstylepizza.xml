@@ -14,7 +14,7 @@
         android:layout_marginEnd="89dp"
         android:layout_marginBottom="25dp"
         android:fontFamily="cursive"
-        android:text="Chicago Style Pizza"
+        android:text="New York Style Pizza"
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
