@@ -51,18 +51,14 @@ public class Meatzza extends Pizza{
     @Override
     public double price() {
         switch (size) {
-            case SMALL -> {
+            case SMALL:
                 return Constant.MEATZZA_SMALL_PRICE.getValue();
-            }
-            case MEDIUM -> {
+            case MEDIUM:
                 return Constant.MEATZZA_MEDIUM_PRICE.getValue();
-            }
-            case LARGE -> {
+            case LARGE:
                 return Constant.MEATZZA_LARGE_PRICE.getValue();
-            }
-            default -> {
+            default:
                 return 0;
-            }
         }
     }
 

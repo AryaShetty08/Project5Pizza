@@ -51,18 +51,14 @@ public class Deluxe extends Pizza {
     @Override
     public double price() {
         switch (size) {
-            case SMALL -> {
+            case SMALL:
                 return Constant.DELUXE_SMALL_PRICE.getValue();
-            }
-            case MEDIUM -> {
+            case MEDIUM:
                 return Constant.DELUXE_MEDIUM_PRICE.getValue();
-            }
-            case LARGE -> {
+            case LARGE:
                 return Constant.DELUXE_LARGE_PRICE.getValue();
-            }
-            default -> {
+            default:
                 return 0;
-            }
         }
     }
 
