@@ -11,6 +11,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.currentorder);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 

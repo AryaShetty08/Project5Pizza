@@ -16,33 +16,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/pizzaOrder"
         android:layout_width="189dp"
         android:layout_height="164dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="108dp"
         android:layout_marginTop="177dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/chicagopizzaimage" />
 
     <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="185dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/nypizzaimage" />
-
-    <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/currentOrder"
         android:layout_width="183dp"
         android:layout_height="165dp"
         android:layout_marginStart="16dp"
@@ -54,7 +41,7 @@
         app:srcCompat="@drawable/currentorderimage" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/storeOrders"
         android:layout_width="182dp"
         android:layout_height="158dp"
         android:layout_marginStart="20dp"
@@ -63,7 +50,7 @@
         android:layout_marginBottom="159dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toEndOf="@+id/currentOrder"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:srcCompat="@drawable/storeordersimage" />
 
@@ -75,35 +62,21 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="41dp"
         android:layout_marginBottom="26dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintBottom_toTopOf="@+id/pizzaOrder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mustache" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="48dp"
-        android:text="Chicago Style Pizza"
-        app:layout_constraintBottom_toTopOf="@+id/imageView7"
-        app:layout_constraintEnd_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="49dp"
-        android:text="New York Style Pizza"
-        app:layout_constraintBottom_toTopOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="36dp"
+        android:text="Pizza Ordering Style"
+        app:layout_constraintBottom_toTopOf="@+id/storeOrders"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -115,7 +88,7 @@
         android:text="Store Orders"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+        app:layout_constraintTop_toBottomOf="@+id/storeOrders" />
 
     <TextView
         android:id="@+id/textView6"
@@ -129,7 +102,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+        app:layout_constraintTop_toBottomOf="@+id/currentOrder" />
 
     <TextView
         android:id="@+id/textView7"
@@ -143,6 +116,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+        app:layout_constraintTop_toBottomOf="@+id/currentOrder" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="52dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package pizzaManager;
 
+import android.os.Parcelable;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  *  - List of Toppings
  * @author Arya Shetty, John Greaney-Cheng
  */
-public abstract class Pizza implements Customizable {
+public abstract class Pizza implements Customizable, Parcelable {
     // Note: All instance variables are protected for inheritance
     protected static final DecimalFormat df = new DecimalFormat("0.00");
     protected ArrayList<Topping> toppings;

@@ -1,5 +1,7 @@
 package pizzaManager;
 
+import android.os.Parcel;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -80,5 +82,15 @@ public class Meatzza extends Pizza{
         }
         toReturn = toReturn + (size.name()) + ", $" + (price());
         return toReturn;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

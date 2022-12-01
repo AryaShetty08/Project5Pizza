@@ -11,6 +11,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storeorders);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 

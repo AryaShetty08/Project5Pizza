@@ -26,24 +26,10 @@
         android:layout_marginStart="131dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="132dp"
-        android:layout_marginBottom="42dp"
         android:text="Cancel Order"
-        app:layout_constraintBottom_toTopOf="@+id/addToOrder2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
-
-    <Button
-        android:id="@+id/addToOrder2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="97dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="103dp"
-        android:text="Export Store Orders"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addToOrder" />
 
     <TextView
         android:id="@+id/textView12"

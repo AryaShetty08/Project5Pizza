@@ -1,6 +1,10 @@
 package pizzaManager;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * BuildYourOwn class is a blueprint for BuildYourOwn Pizza objects
@@ -28,6 +32,25 @@ public class BuildYourOwn extends Pizza{
         size = Size.SMALL;
         toppings = new ArrayList<Topping>();
         numToppings = 0;
+    }
+
+    public BuildYourOwn (Parcel in){
+        crust = Crust.valueOf(in.readString());
+        size = Size.valueOf(in.readString());
+        numToppings = in.readInt();
+        toppings = Arrays.asList((in.readArray(ClassLoader.getSystemClassLoader())));
+    }
+
+    public static final Creator<BuildYourOwn> CREATOR = new Creator<BuildYourOwn>() {
+        @Override
+        public BuildYourOwn createFromParcel(Parcel parcel) {
+            return new BuildYourOwn(parcel);
+        }
+
+        @Override
+        public BuildYourOwn[] newArray(int i) {
+            return new BuildYourOwn[i];
+        }
     }
 
     /**
@@ -108,4 +131,16 @@ public class BuildYourOwn extends Pizza{
         return toReturn;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(crust.name());
+        parcel.writeString(size.name());
+        parcel.writeInt(this.numToppings);
+        parcel.writeTypedArray( toppings, 0);
+    }
 }

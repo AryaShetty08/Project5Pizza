@@ -28,16 +28,18 @@
 
         <activity
             android:name=".PizzaOrderingActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:parentActivityName=".MainActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
 
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
+        <activity
+            android:name=".CurrentOrderActivity"
+            android:parentActivityName=".MainActivity">
+        </activity>
+
+        <activity
+            android:name=".StoreOrdersActivity"
+            android:parentActivityName=".MainActivity">
         </activity>
 
     </application>
