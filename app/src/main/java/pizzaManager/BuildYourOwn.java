@@ -38,7 +38,7 @@ public class BuildYourOwn extends Pizza{
         crust = Crust.valueOf(in.readString());
         size = Size.valueOf(in.readString());
         numToppings = in.readInt();
-        toppings = Arrays.asList((in.readArray(ClassLoader.getSystemClassLoader())));
+        //toppings = Arrays.asList((in.readArray(ClassLoader.getSystemClassLoader())));
     }
 
     public static final Creator<BuildYourOwn> CREATOR = new Creator<BuildYourOwn>() {
@@ -51,7 +51,7 @@ public class BuildYourOwn extends Pizza{
         public BuildYourOwn[] newArray(int i) {
             return new BuildYourOwn[i];
         }
-    }
+    };
 
     /**
      * Adds topping to topping list
@@ -59,7 +59,6 @@ public class BuildYourOwn extends Pizza{
      * @param obj topping to add to topping list
      * @return true if added, false otherwise
      */
-    @Override
     public boolean add(Object obj) {
         if (numToppings == 7){
             return false;
@@ -141,6 +140,6 @@ public class BuildYourOwn extends Pizza{
         parcel.writeString(crust.name());
         parcel.writeString(size.name());
         parcel.writeInt(this.numToppings);
-        parcel.writeTypedArray( toppings, 0);
+        //parcel.writeTypedArray( toppings, 0);
     }
 }
