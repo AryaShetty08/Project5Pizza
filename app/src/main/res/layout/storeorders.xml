@@ -14,6 +14,7 @@
         android:layout_marginEnd="89dp"
         android:fontFamily="cursive"
         android:text="Store Orders"
+        android:textColor="#0B0A0A"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,12 +25,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="131dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="132dp"
+        android:layout_marginBottom="240dp"
         android:text="Cancel Order"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView12"
@@ -37,11 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="76dp"
-        android:layout_marginEnd="314dp"
-        android:layout_marginBottom="8dp"
+        android:fontFamily="cursive"
         android:text="Order Number"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#050505"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,20 +50,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="cursive"
         android:text="Order Total $"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        android:textColor="#040303"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/spinner"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:layout_width="409dp"
         android:layout_height="294dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -73,9 +75,6 @@
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="75dp"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
-        app:layout_constraintEnd_toStartOf="@+id/textView13"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 

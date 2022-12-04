@@ -24,39 +24,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="331dp"
-        android:layout_marginBottom="9dp"
+        android:fontFamily="cursive"
         android:text="Subtotal $"
+        android:textColor="#0B0A0A"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addToOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="143dp"
-        android:layout_marginTop="83dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="13dp"
         android:text="Remove Pizza"
         app:layout_constraintBottom_toTopOf="@+id/addToOrder2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/addToOrder2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="240dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="34dp"
         android:text="Clear Order"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addToOrder" />
 
     <Button
@@ -78,40 +72,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
         android:layout_marginEnd="324dp"
         android:layout_marginBottom="6dp"
+        android:fontFamily="cursive"
         android:text="Sales Tax $"
+        android:textColor="#0B0A0A"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crust" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="314dp"
         android:layout_marginBottom="239dp"
+        android:fontFamily="cursive"
         android:text="Order Total $"
+        android:textColor="#121111"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="314dp"
-        android:layout_marginBottom="8dp"
+        android:fontFamily="cursive"
         android:text="Order Number"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        android:textColor="#050505"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,11 +118,10 @@
         android:layout_width="409dp"
         android:layout_height="294dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/crust"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 

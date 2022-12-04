@@ -12,11 +12,10 @@
         android:layout_marginStart="43dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="43dp"
-        android:layout_marginBottom="25dp"
         android:fontFamily="cursive"
         android:text="Chicago and New York Pizza"
+        android:textColor="#131313"
         android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,26 +36,22 @@
         android:id="@+id/radioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginEnd="3dp"
         android:text="Small"
-        app:layout_constraintBottom_toTopOf="@+id/crust"
+        android:textColor="#101010"
+        app:layout_constraintBottom_toBottomOf="@+id/radioButton2"
         app:layout_constraintEnd_toStartOf="@+id/radioButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <RadioButton
         android:id="@+id/radioButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="57dp"
         android:text="Medium"
-        app:layout_constraintBottom_toTopOf="@+id/_dynamic"
+        android:textColor="#131212"
         app:layout_constraintEnd_toStartOf="@+id/radioButton3"
         app:layout_constraintStart_toEndOf="@+id/radioButton"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toTopOf="@+id/radioButton3" />
 
     <RadioButton
         android:id="@+id/radioButton3"
@@ -65,6 +60,7 @@
         android:layout_marginEnd="180dp"
         android:layout_marginBottom="88dp"
         android:text="Large"
+        android:textColor="#050505"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/radioButton2" />
@@ -75,9 +71,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
-        android:layout_marginEnd="358dp"
+        android:fontFamily="cursive"
         android:text="Crust:"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#131313"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioButton" />
 
@@ -85,38 +82,36 @@
         android:layout_width="135dp"
         android:layout_height="177dp"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="18dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="57dp"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/crust" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:layout_width="135dp"
         android:layout_height="177dp"
         android:layout_marginStart="11dp"
-        android:layout_marginTop="119dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="55dp"
         app:layout_constraintBottom_toTopOf="@+id/addToOrder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintStart_toEndOf="@+id/button2" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="57dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="131dp"
         android:layout_marginBottom="61dp"
+        android:fontFamily="cursive"
         android:text="Pizza Price $:"
+        android:textColor="#070707"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addToOrder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/addToOrder"
@@ -132,12 +127,10 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
         android:layout_marginBottom="15dp"
         android:text="add"
         app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintStart_toEndOf="@+id/radioButton2"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton2" />
+        app:layout_constraintStart_toEndOf="@+id/radioButton2" />
 
     <Button
         android:id="@+id/button3"

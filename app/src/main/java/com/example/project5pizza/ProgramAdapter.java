@@ -40,8 +40,10 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     @NonNull
     @Override
     public ProgramAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.single_item, parent, false);
+
         return new ViewHolder(view);
     }
 
