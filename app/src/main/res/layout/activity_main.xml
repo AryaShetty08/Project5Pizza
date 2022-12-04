@@ -57,7 +57,7 @@
         app:srcCompat="@drawable/storeordersimage" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/Logo"
         android:layout_width="330dp"
         android:layout_height="135dp"
         android:layout_marginStart="40dp"
@@ -71,7 +71,7 @@
         app:srcCompat="@drawable/mustache" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/Pizzastyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="88dp"
@@ -84,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/storeorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -93,11 +93,11 @@
         android:text="Store Orders"
         android:textColor="#050505"
         android:textSize="34sp"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/currentorder"
         app:layout_constraintTop_toBottomOf="@+id/storeOrders" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/currentorder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
@@ -113,7 +113,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/Brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="174dp"

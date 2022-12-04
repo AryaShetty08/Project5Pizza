@@ -3,7 +3,10 @@ package com.example.project5pizza;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import pizzaManager.*;
@@ -17,6 +20,17 @@ import java.util.ArrayList;
 public class PizzaOrderingActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
+    ListView addToppings;
+    ListView selectToppings;
+    RadioButton small;
+    RadioButton medium;
+    RadioButton large;
+    TextView crust;
+    TextView price;
+    Button addToOrder;
+    Button add;
+    Button remove;
+
     RecyclerView.Adapter programAdaptper;
     RecyclerView.LayoutManager layoutmanager;
     String[] programNameList = {"Chicago BYO", "Chicago Deluxe", "Chicago Meatzza", "Chicago BBQ Chicken",
@@ -32,6 +46,23 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pizzaordering);
 
+        addToppings = (ListView)findViewById(R.id.addToppings);
+        selectToppings = (ListView)findViewById(R.id.selectToppings);
+
+        ArrayList<Topping> toppings = new ArrayList<Topping>();
+        for (Topping topping: Topping.values()){
+            if (!toppings.contains(topping)){
+                toppings.add(topping);
+            }
+        }
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, toppings);
+        addToppings.setAdapter(arrayAdapter);
+
+        ArrayList<Topping> selectedToppings = new ArrayList<Topping>();
+
+        ArrayAdapter arrayAdapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, selectedToppings);
+        selectToppings.setAdapter(arrayAdapter2);
+
         recyclerView = findViewById(R.id.rvProgram);
         recyclerView.setHasFixedSize(true);
         programAdaptper = new ProgramAdapter(this, programNameList, programDescriptionList, programImages);
@@ -40,9 +71,9 @@ public class PizzaOrderingActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TextView crust = (TextView)findViewById(R.id.crust);
+        crust = (TextView)findViewById(R.id.crust);
 
-        Button addToOrder = (Button)findViewById(R.id.addToOrder);
+        addToOrder = (Button)findViewById(R.id.cancelOrder);
         Intent intent = getIntent();
         ArrayList<Pizza> pizzaList = intent.getParcelableArrayListExtra("PIZZA_ARRAYLIST");
 
