@@ -18,5 +18,20 @@ public enum Topping {
     BACON,
     OLIVES,
     PINEAPPLE,
-    SPINACH
+    SPINACH;
+
+    /**
+     * Method takes in topping name and returns a topping enum
+     * @param str, string that represents topping name
+     * @return topping string was referring to if it exists,
+     *         null otherwise
+     */
+    public static Topping stringToTopping(String str){
+        for (Topping topping: Topping.values()){
+            if (str.equalsIgnoreCase(topping.name())){
+                return topping;
+            }
+        }
+        return null;
+    }
 }

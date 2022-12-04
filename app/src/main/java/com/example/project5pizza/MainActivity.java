@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int PIZZA_ACTIVITY_RESULT = 1;
     public static final String PIZZA_ARRAYLIST_IDENTIFIER = "Pizza";
+    public static final int ORDER_ACTIVITY_RESULT = 2;
+    public static final String ORDER_ARRAYLIST_IDENTIFIER = "Order";
+    public static final int STORE_ORDER_ACTIVITY_RESULT = 3;
+    public static final String STORE_ORDER_ARRAYLIST_IDENTIFIER = "Store Order";
+
     private ArrayList<Pizza> pizzaList;
     private ArrayList<Order> orderList;
     ImageView pizzaOrder;
@@ -38,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
                     if (result != null && result.getResultCode() == PIZZA_ACTIVITY_RESULT){
                         Intent intent = result.getData();
                         if (intent != null){
-                            ArrayList<String> pizzaList = intent.getStringArrayListExtra(PIZZA_ARRAYLIST_IDENTIFIER);
-                            temp.setText(pizzaList.get(0));
+                            ArrayList<String> temp = intent.getStringArrayListExtra(PIZZA_ARRAYLIST_IDENTIFIER);
+                            for (String str: temp){
+                                Pizza pizza = Pizza.stringToPizza(str);
+                                pizzaList.add(pizza);
+                            }
                         }
                     }
                 }

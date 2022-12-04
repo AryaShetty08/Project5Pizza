@@ -2,6 +2,7 @@ package pizzaManager;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * Pizza Abstract Class is a blueprint for Pizza objects
@@ -54,4 +55,69 @@ public abstract class Pizza implements Customizable {
      */
     @Override
     public abstract String toString();
+
+    public static Pizza stringToPizza(String s){
+        Pizza pizza = null;
+        if (s.substring(0, 13).equals("BBQ Chicken (")){
+            if (s.substring(14, 45).equals("New York Style - Hand Tossed), ")){
+                pizza = new BBQ_Chicken(new NYPizza());
+            }
+            else {
+                pizza = new BBQ_Chicken(new ChicagoPizza());
+            }
+        }
+        else if (s.substring(0, 8).equals("Deluxe (")){
+            if (s.substring(9, 40).equals("New York Style - Hand Tossed), ")){
+                pizza = new Deluxe(new NYPizza());
+            }
+            else {
+                pizza = new Deluxe(new ChicagoPizza());
+            }
+        }
+        else if (s.substring(0, 9).equals("Meatzza (")){
+            if (s.substring(10, 41).equals("New York Style - Hand Tossed), ")){
+                pizza = new Meatzza(new NYPizza());
+            }
+            else {
+                pizza = new Meatzza(new ChicagoPizza());
+            }
+        }
+        else if (s.substring(0, 16).equals("Build Your Own (")){
+            if (s.substring(17, 48).equals("New York Style - Hand Tossed), ")){
+                pizza = new BuildYourOwn(new NYPizza());
+            }
+            else {
+                pizza = new BuildYourOwn(new ChicagoPizza());
+            }
+            addToppingsFromString(pizza, s);
+        }
+        else {
+            return null;
+        }
+        pizza.setSize(getSizeFromString(s));
+        return pizza;
+    }
+
+    private static Size getSizeFromString(String s){
+        switch (s.substring(s.length() - 8, s.length() - 7)){
+            case "l":
+                return Size.SMALL;
+            case "m":
+                return Size.MEDIUM;
+            case "e":
+                return Size.LARGE;
+            default:
+                return null;
+        }
+    }
+
+    private static void addToppingsFromString(Pizza pizza, String pizzaString){
+        String[] splitPizzaString = pizzaString.split(", ");
+        for (String s: splitPizzaString){
+            Topping topping = Topping.stringToTopping(s);
+            if (topping != null){
+                pizza.add(topping);
+            }
+        }
+    }
 }
