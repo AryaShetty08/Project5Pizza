@@ -74,16 +74,19 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         crust = (TextView)findViewById(R.id.crust);
 
         addToOrder = (Button)findViewById(R.id.cancelOrder);
-        Intent intent = getIntent();
-        ArrayList<Pizza> pizzaList = intent.getParcelableArrayListExtra("PIZZA_ARRAYLIST");
 
         addToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crust.setText("hello");
-                pizzaList.add(new Deluxe(new NYPizza()));
+                Intent intent = new Intent();
+                ArrayList<String> pizzaList = new ArrayList<String>();
+                pizzaList.add("Hello");
+                intent.putStringArrayListExtra(MainActivity.PIZZA_ARRAYLIST_IDENTIFIER, pizzaList);
+                setResult(MainActivity.PIZZA_ACTIVITY_RESULT, intent);
             }
         });
     }
+
+
 
 }

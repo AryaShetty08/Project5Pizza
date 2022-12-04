@@ -1,58 +1,87 @@
 package com.example.project5pizza;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import pizzaManager.Pizza;
+import pizzaManager.*;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final int PIZZA_ACTIVITY_RESULT = 1;
+    public static final String PIZZA_ARRAYLIST_IDENTIFIER = "Pizza";
+    private ArrayList<Pizza> pizzaList;
+    private ArrayList<Order> orderList;
+    ImageView pizzaOrder;
+    ImageView currentOrder;
+    ImageView storeOrders;
+
+    private ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result != null && result.getResultCode() == PIZZA_ACTIVITY_RESULT){
+                        Intent intent = result.getData();
+                        if (intent != null){
+                            ArrayList<String> pizzaList = intent.getStringArrayListExtra(PIZZA_ARRAYLIST_IDENTIFIER);
+                            temp.setText(pizzaList.get(0));
+                        }
+                    }
+                }
+            });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Pizza> a = new ArrayList<Pizza>();
+        this.pizzaList = new ArrayList<Pizza>();
+        this.orderList = new ArrayList<Order>();
+        setImageViews();
+    }
 
-        ImageView pizzaOrder = (ImageView)findViewById(R.id.pizzaOrder);
+    private void setImageViews(){
+        pizzaOrder = (ImageView)findViewById(R.id.pizzaOrder);
         pizzaOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent switchToPizza = new Intent(getApplicationContext(), PizzaOrderingActivity.class);
-                startActivity(switchToPizza);
+                pizzaActivityLauncher.launch(switchToPizza);
             }
         });
 
-        ImageView currentOrder = (ImageView)findViewById(R.id.currentOrder);
+        currentOrder = (ImageView)findViewById(R.id.currentOrder);
         currentOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent switchtoCurrent = new Intent(getApplicationContext(), CurrentOrderActivity.class);
-                startActivity(switchtoCurrent);
+                Intent switchToCurrentOrder = new Intent(getApplicationContext(), CurrentOrderActivity.class);
+                startActivity(switchToCurrentOrder);
             }
         });
 
-        ImageView storeOrders = (ImageView)findViewById(R.id.storeOrders);
+        storeOrders = (ImageView)findViewById(R.id.storeOrders);
         storeOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent switchtoStore = new Intent(getApplicationContext(), StoreOrdersActivity.class);
-                switchtoStore.putParcelableArrayListExtra("PIZZA_ARRAYLIST", a);
-                startActivity(switchtoStore);
+                Intent switchToStoreOrder = new Intent(getApplicationContext(), StoreOrdersActivity.class);
+                startActivity(switchToStoreOrder);
             }
         });
-
     }
-
-
 }

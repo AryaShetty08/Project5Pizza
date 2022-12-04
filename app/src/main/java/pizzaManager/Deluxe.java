@@ -1,7 +1,5 @@
 package pizzaManager;
 
-import android.os.Parcel;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -11,14 +9,12 @@ import java.util.Arrays;
  * @author Arya Shetty, John Greaney-Cheng
  */
 public class Deluxe extends Pizza {
-    public Deluxe (PizzaFactory pizzaFactory){
-        if (pizzaFactory instanceof NYPizza){
+    public Deluxe(PizzaFactory pizzaFactory) {
+        if (pizzaFactory instanceof NYPizza) {
             crust = Crust.BROOKLYN;
-        }
-        else if (pizzaFactory instanceof ChicagoPizza){
+        } else if (pizzaFactory instanceof ChicagoPizza) {
             crust = Crust.DEEP_DISH;
-        }
-        else {
+        } else {
             crust = null;
         }
         size = Size.SMALL;
@@ -27,6 +23,7 @@ public class Deluxe extends Pizza {
 
     /**
      * No need to add/remove toppings, so method always returns false
+     *
      * @param obj topping to add to Topping List (can't in this class)
      * @return false
      */
@@ -37,6 +34,7 @@ public class Deluxe extends Pizza {
 
     /**
      * No need to add/remove toppings, so method always returns false
+     *
      * @param obj topping to add to Topping List (can't in this class)
      * @return false
      */
@@ -48,6 +46,7 @@ public class Deluxe extends Pizza {
     /**
      * Method to calculate and return this Deluxe pizza price
      * Price is based solely off of size (see below)
+     *
      * @return price of pizza
      */
     @Override
@@ -66,31 +65,21 @@ public class Deluxe extends Pizza {
 
     /**
      * Returns String representation of this Deluxe pizza
+     *
      * @return String representation of this Deluxe pizza
      */
     @Override
     public String toString() {
         String toReturn = "Deluxe (";
-        if (crust == Crust.BROOKLYN){
+        if (crust == Crust.BROOKLYN) {
             toReturn = toReturn + "New York Style - Brooklyn), ";
-        }
-        else {
+        } else {
             toReturn = toReturn + "Chicago Style - Deep Dish), ";
         }
-        for (Topping topping: toppings){
+        for (Topping topping : toppings) {
             toReturn = toReturn + (topping.name() + ", ");
         }
         toReturn = toReturn + (size.name()) + ", $" + (price());
         return toReturn;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-
     }
 }
