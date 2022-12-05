@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView currentOrder;
     ImageView storeOrders;
 
-    private ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
+    ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override

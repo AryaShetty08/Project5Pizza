@@ -59,7 +59,7 @@ public abstract class Pizza implements Customizable {
     public static Pizza stringToPizza(String s){
         Pizza pizza = null;
         if (s.substring(0, 13).equals("BBQ Chicken (")){
-            if (s.substring(14, 45).equals("New York Style - Hand Tossed), ")){
+            if (s.substring(13, 37).equals("New York Style - Thin), ")){
                 pizza = new BBQ_Chicken(new NYPizza());
             }
             else {
@@ -67,7 +67,7 @@ public abstract class Pizza implements Customizable {
             }
         }
         else if (s.substring(0, 8).equals("Deluxe (")){
-            if (s.substring(9, 40).equals("New York Style - Hand Tossed), ")){
+            if (s.substring(8, 36).equals("New York Style - Brooklyn), ")){
                 pizza = new Deluxe(new NYPizza());
             }
             else {
@@ -75,7 +75,7 @@ public abstract class Pizza implements Customizable {
             }
         }
         else if (s.substring(0, 9).equals("Meatzza (")){
-            if (s.substring(10, 41).equals("New York Style - Hand Tossed), ")){
+            if (s.substring(9, 40).equals("New York Style - Hand Tossed), ")){
                 pizza = new Meatzza(new NYPizza());
             }
             else {
@@ -83,7 +83,7 @@ public abstract class Pizza implements Customizable {
             }
         }
         else if (s.substring(0, 16).equals("Build Your Own (")){
-            if (s.substring(17, 48).equals("New York Style - Hand Tossed), ")){
+            if (s.substring(16, 47).equals("New York Style - Hand Tossed), ")){
                 pizza = new BuildYourOwn(new NYPizza());
             }
             else {
@@ -99,12 +99,12 @@ public abstract class Pizza implements Customizable {
     }
 
     private static Size getSizeFromString(String s){
-        switch (s.substring(s.length() - 8, s.length() - 7)){
-            case "l":
+        switch (s.substring(s.length() - 9, s.length() - 8)){
+            case "L":
                 return Size.SMALL;
-            case "m":
+            case "M":
                 return Size.MEDIUM;
-            case "e":
+            case "E":
                 return Size.LARGE;
             default:
                 return null;
