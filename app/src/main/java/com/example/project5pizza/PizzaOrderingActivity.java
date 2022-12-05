@@ -99,8 +99,16 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         });
 
 
-
-        programAdaptper = new ProgramAdapter(this, programNameList, programDescriptionList, programImages);
+        programAdaptper = new ProgramAdapter(this, programNameList, programDescriptionList, programImages, new ProgramAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String s){
+                switch (s){
+                    case "NY Deluxe":
+                        initializeDeluxe(new NYPizza());
+                }
+                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
@@ -147,7 +155,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
             private void initializeNYBBQ() {
             }
 
-            private void initializeNYDeluxe() {
+            private void initializeDeluxe(PizzaFactory pizzaFactory) {
             }
 
             private void initializeChicagoBuildYourOwn() {
@@ -159,10 +167,10 @@ public class PizzaOrderingActivity extends AppCompatActivity {
             private void initializeChicagoBBQ() {
             }
 
-            private void initializeChicagoDeluxe() {
-                pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_LARGE_PRICE.getValue();
-                price.setText("Pizza Price $:" + df.format(pizzaPrice));
-            }
+//            private void initializeChicagoDeluxe() {
+//                pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_LARGE_PRICE.getValue();
+//                price.setText("Pizza Price $:" + df.format(pizzaPrice));
+//            }
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -179,6 +187,9 @@ public class PizzaOrderingActivity extends AppCompatActivity {
                 setResult(MainActivity.PIZZA_ACTIVITY_RESULT, intent);
             }
         });
+    }
+
+    private void initializeDeluxe(NYPizza nyPizza) {
     }
 
     private void showAlertDialog(String message){

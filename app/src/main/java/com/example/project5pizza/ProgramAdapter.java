@@ -21,12 +21,18 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
     String[] programDescriptionList;
     int[] images;
     public int singleitem_selection_position = 0;
+    OnItemClickListener listener;
 
-    public ProgramAdapter(Context context, String[] programNameList, String[] programDescriptionList, int[] images){
+    public interface OnItemClickListener {
+        void onItemClick(String s);
+    }
+
+    public ProgramAdapter(Context context, String[] programNameList, String[] programDescriptionList, int[] images, OnItemClickListener listener){
         this.context = context;
         this.programNameList = programNameList;
         this.programDescriptionList = programDescriptionList;
         this.images = images;
+        this.listener = listener;
     }
 
     @NonNull
@@ -41,6 +47,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ProgramAdapter.ViewHolder holder, int position) {
+        holder.bind(programNameList[position], listener);
         holder.rowName.setText(programNameList[position]);
         holder.rowDescription.setText(programDescriptionList[position]);
         holder.rowImage.setImageResource(images[position]);
@@ -81,6 +88,15 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
                 @Override
                 public void onClick(View view) {
                     setSingleSelection(getAdapterPosition());
+                }
+            });
+        }
+
+        public void bind (String s, OnItemClickListener listener){
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick (View view){
+                    listener.onItemClick(s);
                 }
             });
         }
