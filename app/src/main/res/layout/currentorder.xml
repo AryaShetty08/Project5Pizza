@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="89dp"
         android:fontFamily="cursive"
-        android:text="Current Order"
+        android:text="@string/current_order"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +26,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="331dp"
         android:fontFamily="cursive"
-        android:text="Subtotal $"
+        android:text="@string/subtotal"
         android:textColor="#0B0A0A"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/salesTax"
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="13dp"
-        android:text="Remove Pizza"
+        android:text="@string/remove_pizza"
         app:layout_constraintBottom_toTopOf="@+id/clearOrder"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="34dp"
-        android:text="Clear Order"
+        android:text="@string/clear_order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cancelOrder" />
 
@@ -60,7 +61,7 @@
         android:layout_marginTop="19dp"
         android:layout_marginEnd="34dp"
         android:layout_marginBottom="69dp"
-        android:text="Place Order"
+        android:text="@string/place_order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,22 +75,22 @@
         android:layout_marginEnd="324dp"
         android:layout_marginBottom="6dp"
         android:fontFamily="cursive"
-        android:text="Sales Tax $"
+        android:text="@string/sales_tax"
         android:textColor="#0B0A0A"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/orderTotal"
+        app:layout_constraintBottom_toTopOf="@+id/totalprice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/orderTotal"
+        android:id="@+id/totalprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="314dp"
         android:layout_marginBottom="239dp"
         android:fontFamily="cursive"
-        android:text="Order Total $"
+        android:text="@string/price_total"
         android:textColor="#121111"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -98,14 +99,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/orderNumber"
+        android:id="@+id/currentNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="314dp"
         android:fontFamily="cursive"
-        android:text="Order Number"
+        android:text="@string/current_number"
         android:textColor="#050505"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -123,6 +124,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/currentNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

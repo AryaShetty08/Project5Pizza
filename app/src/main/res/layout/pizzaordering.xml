@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="43dp"
         android:fontFamily="cursive"
-        android:text="Chicago and New York Pizza"
+        android:text="@string/chicago_and_new_york_pizza"
         android:textColor="#131313"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,114 +33,89 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title" />
 
-    <RadioButton
-        android:id="@+id/small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:text="Small"
-        android:textColor="#101010"
-        app:layout_constraintBottom_toBottomOf="@+id/medium"
-        app:layout_constraintEnd_toStartOf="@+id/medium"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioButton
-        android:id="@+id/medium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Medium"
-        android:textColor="#131212"
-        app:layout_constraintEnd_toStartOf="@+id/large"
-        app:layout_constraintStart_toEndOf="@+id/small"
-        app:layout_constraintTop_toTopOf="@+id/large" />
-
-    <RadioButton
-        android:id="@+id/large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="180dp"
-        android:layout_marginBottom="88dp"
-        android:text="Large"
-        android:textColor="#050505"
-        app:layout_constraintBottom_toTopOf="@+id/add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/medium" />
-
     <TextView
         android:id="@+id/crust"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="180dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="82dp"
         android:fontFamily="cursive"
-        android:text="Crust:"
+        android:text="@string/crust"
         android:textColor="#131313"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/small" />
+        app:layout_constraintBottom_toTopOf="@+id/addToppings"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ListView
         android:id="@+id/addToppings"
-        android:layout_width="135dp"
-        android:layout_height="177dp"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="57dp"
-        app:layout_constraintBottom_toTopOf="@+id/price"
-        app:layout_constraintEnd_toStartOf="@+id/add"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ListView
-        android:id="@+id/selectToppings"
-        android:layout_width="135dp"
-        android:layout_height="177dp"
-        android:layout_marginStart="11dp"
+        android:layout_width="367dp"
+        android:layout_height="149dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/cancelOrder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="61dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="56dp"
         android:fontFamily="cursive"
-        android:text="Pizza Price $:"
+        android:text="@string/pizza_price"
         android:textColor="#070707"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cancelOrder"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/cancelOrder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="131dp"
-        android:layout_marginBottom="35dp"
-        android:text="Add To Order"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/add_to_order"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/price" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:text="add"
-        app:layout_constraintBottom_toTopOf="@+id/remove"
-        app:layout_constraintStart_toEndOf="@+id/medium" />
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="121dp"
+        android:layout_height="107dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="78dp"
+        app:layout_constraintEnd_toStartOf="@+id/crust"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvProgram">
 
-    <Button
-        android:id="@+id/remove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="91dp"
-        android:text="remove"
-        app:layout_constraintBottom_toTopOf="@+id/cancelOrder"
-        app:layout_constraintStart_toStartOf="@+id/add" />
+        <RadioButton
+            android:id="@+id/large"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="@string/large"
+            android:textColor="#050505"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/small"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:text="@string/small"
+            android:textColor="#101010"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/medium"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/medium"
+            android:textColor="#131212"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

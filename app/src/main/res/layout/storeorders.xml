@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="89dp"
         android:fontFamily="cursive"
-        android:text="Store Orders"
+        android:text="@string/store_orders"
         android:textColor="#0B0A0A"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,19 +28,19 @@
         android:layout_marginStart="131dp"
         android:layout_marginEnd="132dp"
         android:layout_marginBottom="240dp"
-        android:text="Cancel Order"
+        android:text="@string/cancel_order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/orderNumber"
+        android:id="@+id/currentNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="76dp"
         android:fontFamily="cursive"
-        android:text="Order Number"
+        android:text="@string/order_number"
         android:textColor="#050505"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +53,7 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="76dp"
         android:fontFamily="cursive"
-        android:text="Order Total $"
+        android:text="@string/order_total"
         android:textColor="#040303"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/spinner"
@@ -68,15 +69,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/orderNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/currentNumber" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="99dp"
-        android:layout_height="34dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
-        app:layout_constraintStart_toEndOf="@+id/orderNumber"
-        app:layout_constraintTop_toBottomOf="@+id/Title" />
+        app:layout_constraintStart_toEndOf="@+id/currentNumber"
+        app:layout_constraintTop_toBottomOf="@+id/Title"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
