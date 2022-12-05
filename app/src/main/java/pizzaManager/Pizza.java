@@ -56,6 +56,13 @@ public abstract class Pizza implements Customizable {
     @Override
     public abstract String toString();
 
+    /**
+     * Given String representation of pizza, returns corresponding pizza object
+     * First determines pizza type and style (ex: BBQ Chicken, New York Style)
+     * Then determines toppings (for build your own) and pizza size in helper methods
+     * @param s string representation of pizza
+     * @return corresponding pizza object to given string
+     */
     public static Pizza stringToPizza(String s){
         Pizza pizza = null;
         if (s.substring(0, 13).equals("BBQ Chicken (")){
@@ -98,6 +105,11 @@ public abstract class Pizza implements Customizable {
         return pizza;
     }
 
+    /**
+     * Private helper method to return size of pizza described in string representation
+     * @param s string representation of pizza
+     * @return size of pizza
+     */
     private static Size getSizeFromString(String s){
         switch (s.substring(s.length() - 9, s.length() - 8)){
             case "L":
@@ -111,6 +123,11 @@ public abstract class Pizza implements Customizable {
         }
     }
 
+    /**
+     * Private helper method to parse string representation of pizza and add toppings to pizza
+     * @param pizza Build Your Own Pizza to add toppings to
+     * @param pizzaString string representation of pizza
+     */
     private static void addToppingsFromString(Pizza pizza, String pizzaString){
         String[] splitPizzaString = pizzaString.split(", ");
         for (String s: splitPizzaString){
