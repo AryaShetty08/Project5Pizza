@@ -105,6 +105,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(programAdaptper);
+        programAdaptper.getItemCount();
 
         recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
