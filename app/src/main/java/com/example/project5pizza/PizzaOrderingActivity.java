@@ -1,6 +1,7 @@
 package com.example.project5pizza;
 
 import static pizzaManager.Constant.*;
+import static pizzaManager.Topping.*;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +32,19 @@ public class PizzaOrderingActivity extends AppCompatActivity {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
     Double pizzaPrice = 0.0;
+    private final PizzaFactory nypizza = new NYPizza();
+    private final PizzaFactory chicpizza = new ChicagoPizza();
+    private Pizza orderInProgress = new Deluxe(chicpizza);
+    ListView addToppings;
+    TextView crust;
+    RecyclerView recyclerView;
+    Button addToOrder;
+    RadioButton small;
+    RadioButton medium;
+    RadioButton large;
+    TextView price;
+    ArrayList<Topping> selectedToppings = new ArrayList<Topping>();
+
     RecyclerView.Adapter programAdaptper;
     RecyclerView.LayoutManager layoutmanager;
     String[] programNameList = {"Chicago BYO", "Chicago Deluxe", "Chicago Meatzza", "Chicago BBQ Chicken",
@@ -46,34 +60,39 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pizzaordering);
 
-        ListView addToppings = (ListView)findViewById(R.id.addToppings);
-        TextView crust = (TextView)findViewById(R.id.crust);
-        RecyclerView recyclerView = findViewById(R.id.rvProgram);
-        Button addToOrder = (Button)findViewById(R.id.cancelOrder);
-        RadioButton small = (RadioButton)findViewById(R.id.small);
-        RadioButton medium = (RadioButton)findViewById(R.id.medium);
-        RadioButton large = (RadioButton)findViewById(R.id.large);
-        TextView price = (TextView)findViewById(R.id.price);
+        addToppings = (ListView)findViewById(R.id.addToppings);
+        crust = (TextView)findViewById(R.id.crust);
+        recyclerView = findViewById(R.id.rvProgram);
+        addToOrder = (Button)findViewById(R.id.cancelOrder);
+        small = (RadioButton)findViewById(R.id.small);
+        medium = (RadioButton)findViewById(R.id.medium);
+        large = (RadioButton)findViewById(R.id.large);
+        price = (TextView)findViewById(R.id.price);
+        price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
 
-        RadioGroup radioGroup = (RadioGroup)findViewById(R.id.radioGroup);
 
         small.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton = findViewById(radioId);
-                if(radioButton.getText().equals(small.getText())){
-                    pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_SMALL_PRICE.getValue();
-                  price.setText("Pizza Price $:" + df.format(pizzaPrice));
-                }
-                else if(radioButton.getText().equals(medium.getText())){
-                    pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_MEDIUM_PRICE.getValue();
-                  price.setText("Pizza Price $:" + df.format(pizzaPrice));
-                }
-                else if(radioButton.getText().equals(large.getText())){
-                    pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_LARGE_PRICE.getValue();
-                    price.setText("Pizza Price $:" + df.format(pizzaPrice));
-                }
+                  orderInProgress.setSize(Size.SMALL);
+                  //price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+                price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+            }
+        });
+
+        medium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderInProgress.setSize(Size.MEDIUM);
+                price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+            }
+        });
+
+        large.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderInProgress.setSize(Size.LARGE);
+                price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
             }
         });
 
@@ -87,14 +106,19 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         addToppings.setChoiceMode(addToppings.CHOICE_MODE_MULTIPLE);
         addToppings.setAdapter(arrayAdapter);
 
-        ArrayList<Topping> selectedToppings = new ArrayList<Topping>();
-
         addToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedToppings.add((Topping) adapterView.getItemAtPosition(i));
-                pizzaPrice = pizzaPrice + PRICE_PER_TOPPING.getValue();
-                price.setText("Pizza Price $:" + df.format(pizzaPrice));
+                if(orderInProgress.getToppings().contains((Topping) adapterView.getItemAtPosition(i))) {
+                    selectedToppings.add((Topping) adapterView.getItemAtPosition(i));
+                    orderInProgress.add(selectedToppings.get(i));
+                    price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+                }
+                else{
+                    selectedToppings.remove((Topping) adapterView.getItemAtPosition(i));
+                    orderInProgress.remove(selectedToppings.get(i));
+                    price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+                }
             }
         });
 
@@ -103,8 +127,23 @@ public class PizzaOrderingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(String s){
                 switch (s){
+                    case "Chicago Deluxe":
+                        Pizza test = new Deluxe(chicpizza);
+                        initializePizza(test);
+                    case "Chicago BBQ Chicken":
+                        initializePizza(chicpizza.createBBQChicken());
+                    case "Chicago Meatzza":
+                        initializePizza(chicpizza.createMeatzza());
+                    case "Chicago BYO":
+                        initializePizzaBYO(chicpizza.createBuildYourOwn());
                     case "NY Deluxe":
-                        initializeDeluxe(new NYPizza());
+                        initializePizza(nypizza.createDeluxe());
+                    case "NY BBQ Chicken":
+                        initializePizza(nypizza.createBBQChicken());
+                    case "NY Meatzza":
+                        initializePizza(nypizza.createMeatzza());
+                    case "NY BYO":
+                        initializePizzaBYO(nypizza.createBuildYourOwn());
                 }
                 Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
             }
@@ -115,66 +154,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         recyclerView.setAdapter(programAdaptper);
         programAdaptper.getItemCount();
 
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(programNameList[1].equals("Chicago Deluxe")){
-                    initializeChicagoDeluxe();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("Chicago BBQ Chicken")){
-                    initializeChicagoBBQ();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("Chicago Meatzza")){
-                    initializeChicagoMeatzza();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("Chicago BYO")){
-                    initializeChicagoBuildYourOwn();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("NY Deluxe")){
-                    initializeNYDeluxe();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("NY BBQ Chicken")){
-                    initializeNYBBQ();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("NY Meatzza")){
-                    initializeNYMeatzza();
-                }
-                else if(programNameList[programAdaptper.getItemCount()].equals("NY BYO")){
-                    initializeNYBuildYourOwn();
-                }
-            }
-
-            private void initializeNYBuildYourOwn() {
-                pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_LARGE_PRICE.getValue();
-                price.setText("Pizza Price $:" + df.format(pizzaPrice));
-            }
-
-            private void initializeNYMeatzza() {
-            }
-
-            private void initializeNYBBQ() {
-            }
-
-            private void initializeDeluxe(PizzaFactory pizzaFactory) {
-            }
-
-            private void initializeChicagoBuildYourOwn() {
-            }
-
-            private void initializeChicagoMeatzza() {
-            }
-
-            private void initializeChicagoBBQ() {
-            }
-
-//            private void initializeChicagoDeluxe() {
-//                pizzaPrice = pizzaPrice + BUILD_YOUR_OWN_LARGE_PRICE.getValue();
-//                price.setText("Pizza Price $:" + df.format(pizzaPrice));
-//            }
-        });
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         addToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +169,63 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         });
     }
 
-    private void initializeDeluxe(NYPizza nyPizza) {
+    private void initializePizzaBYO(Pizza pizza) {
+        orderInProgress = pizza;
+        String c = "Crust:" + orderInProgress.getCrust().name();
+        crust.setText(c);
+        if(small.isChecked()) {
+            orderInProgress.setSize(Size.SMALL);
+        }
+        else if(medium.isChecked()){
+            orderInProgress.setSize(Size.MEDIUM);
+        }
+        else if(large.isChecked()){
+            orderInProgress.setSize(Size.LARGE);
+        }
+
+        addToppings.getChildAt(0).setEnabled(true);
+        addToppings.getChildAt(1).setEnabled(true);
+        addToppings.getChildAt(2).setEnabled(true);
+        addToppings.getChildAt(3).setEnabled(true);
+        //addToppings.setEnabled(true);
+        //dont know why crust is not being updated
+        //orderInProgress.add(SAUSAGE);
+        //orderInProgress.add(PEPPERONI);
+
+        price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+    }
+
+    private void initializePizza(Pizza pizza) {
+        orderInProgress = pizza;
+        String c = "Crust:" + orderInProgress.getCrust().name();
+        crust.setText(c);
+        if(small.isChecked()) {
+            orderInProgress.setSize(Size.SMALL);
+        }
+        else if(medium.isChecked()){
+            orderInProgress.setSize(Size.MEDIUM);
+        }
+        else if(large.isChecked()){
+            orderInProgress.setSize(Size.LARGE);
+        }
+        crust.setText("Crust:" + (String)(orderInProgress.getCrust().toString()));
+        selectedToppings.addAll(orderInProgress.getToppings());
+        //orderInProgress.add(SAUSAGE);
+        //orderInProgress.add(PEPPERONI);
+
+
+
+        addToppings.setItemChecked(1, true);
+
+        addToppings.getChildAt(0).setEnabled(false);
+        addToppings.getChildAt(1).setEnabled(false);
+        addToppings.getChildAt(2).setEnabled(false);
+        addToppings.getChildAt(3).setEnabled(false);
+
+        //addToppings.getChildAt(1).setContextClickable(false);
+        //addToppings.setEnabled(false);
+
+        price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
     private void showAlertDialog(String message){

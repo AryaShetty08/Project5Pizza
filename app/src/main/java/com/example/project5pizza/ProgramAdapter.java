@@ -47,7 +47,6 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ProgramAdapter.ViewHolder holder, int position) {
-        holder.bind(programNameList[position], listener);
         holder.rowName.setText(programNameList[position]);
         holder.rowDescription.setText(programDescriptionList[position]);
         holder.rowImage.setImageResource(images[position]);
@@ -59,7 +58,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
         else{
             holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
-
+        holder.bind(programNameList[position], listener);
     }
 
     @Override
@@ -83,13 +82,6 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
             rowDescription = itemView.findViewById(R.id.textView2);
             rowImage = itemView.findViewById(R.id.imageView);
             rowItem = itemView.findViewById(R.id.rowitem);
-
-            rowItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    setSingleSelection(getAdapterPosition());
-                }
-            });
         }
 
         public void bind (String s, OnItemClickListener listener){
@@ -97,6 +89,7 @@ public class ProgramAdapter extends RecyclerView.Adapter<ProgramAdapter.ViewHold
                 @Override
                 public void onClick (View view){
                     listener.onItemClick(s);
+                    setSingleSelection(getAdapterPosition());
                 }
             });
         }
