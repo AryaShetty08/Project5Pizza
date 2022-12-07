@@ -90,17 +90,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_LONG).show();
-
-        if (savedInstanceState != null){
-            Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_LONG).show();
-        }
         this.pizzaList = new ArrayList<String>();
         this.orderList = new ArrayList<Order>();
         setImageViews();
-        if(savedInstanceState!=null){
-            this.pizzaList = savedInstanceState.getStringArrayList("MyArrayList");
-        }
     }
 
     /**
