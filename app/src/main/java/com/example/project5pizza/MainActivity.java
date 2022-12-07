@@ -68,6 +68,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+    ActivityResultLauncher<Intent> currentOrderActivityLauncher  = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result != null && result.getResultCode() == ORDER_ACTIVITY_RESULT){
+                        Intent intent = result.getData();
+                        if (intent != null){
+
+                        }
+                    }
+                }
+            });
+
     /**
      *
      * @param savedInstanceState
@@ -76,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_LONG).show();
+
+        if (savedInstanceState != null){
+            Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_LONG).show();
+        }
         this.pizzaList = new ArrayList<String>();
         this.orderList = new ArrayList<Order>();
         setImageViews();
@@ -102,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent switchToCurrentOrder = new Intent(getApplicationContext(), CurrentOrderActivity.class);
                 switchToCurrentOrder.putStringArrayListExtra(PIZZA_LIST_IDENTIFIER, pizzaList);
-                startActivity(switchToCurrentOrder);
+                currentOrderActivityLauncher.launch(switchToCurrentOrder);
             }
         });
 
@@ -114,17 +133,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(switchToStoreOrder);
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putStringArrayList("MyArrayList", pizzaList);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        this.pizzaList = savedInstanceState.getStringArrayList("MyArrayList");
     }
 }
