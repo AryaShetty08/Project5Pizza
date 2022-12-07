@@ -90,6 +90,7 @@ public class StoreOrdersActivity extends AppCompatActivity implements AdapterVie
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(MainActivity.FAILED_RESULT, null);
                 this.finish();
                 return true;
         }

@@ -32,15 +32,18 @@ import pizzaManager.*;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static final int FAILED_RESULT = -1;
     public static final int PIZZA_ACTIVITY_RESULT = 1;
     public static final String PIZZA_STRING_IDENTIFIER = "Pizza";
     public static final String PIZZA_LIST_IDENTIFIER = "Pizza List";
+    public static final String SERIAL_NUMBER_IDENTIFIER = "Serial Code";
     public static final int ORDER_ACTIVITY_RESULT = 2;
     public static final String ORDER_ARRAYLIST_IDENTIFIER = "Order";
     public static final int STORE_ORDER_ACTIVITY_RESULT = 3;
     public static final String STORE_ORDER_ARRAYLIST_IDENTIFIER = "Store Order";
 
     private ArrayList<String> pizzaList;
+    private int currentSerialNumber;
     private ArrayList<Order> orderList;
     private ImageView pizzaOrder;
     private ImageView currentOrder;
@@ -76,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                     if (result != null && result.getResultCode() == ORDER_ACTIVITY_RESULT){
                         Intent intent = result.getData();
                         if (intent != null){
-
+                            currentSerialNumber++;
+                            Toast.makeText(getApplicationContext(), "Something was returned", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
@@ -92,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.pizzaList = new ArrayList<String>();
         this.orderList = new ArrayList<Order>();
+        this.currentSerialNumber = 1;
         setImageViews();
     }
 
@@ -126,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent switchToCurrentOrder = new Intent(getApplicationContext(), CurrentOrderActivity.class);
                 switchToCurrentOrder.putStringArrayListExtra(PIZZA_LIST_IDENTIFIER, pizzaList);
+                switchToCurrentOrder.putExtra(SERIAL_NUMBER_IDENTIFIER, currentSerialNumber);
                 currentOrderActivityLauncher.launch(switchToCurrentOrder);
             }
         });

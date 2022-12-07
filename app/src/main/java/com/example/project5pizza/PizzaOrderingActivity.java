@@ -37,7 +37,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
     private ListView addToppings;
     private TextView crust;
     private RecyclerView recyclerView;
-    Button addToOrder;
+    private Button addToOrder;
     private RadioButton small;
     private RadioButton medium;
     private RadioButton large;
@@ -263,6 +263,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(MainActivity.FAILED_RESULT, null);
                 this.finish();
                 return true;
         }

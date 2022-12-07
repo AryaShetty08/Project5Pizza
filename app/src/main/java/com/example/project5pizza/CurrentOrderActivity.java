@@ -38,7 +38,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     Button removePizza;
     Button placeOrder;
     Button clearOrder;
-    Order current = new Order(1);
+    Order current;
     int pizzaToRemove;
     ArrayAdapter arrayAdapter;
 
@@ -62,6 +62,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ArrayList<String> currentOrder = intent.getStringArrayListExtra(MainActivity.PIZZA_LIST_IDENTIFIER);
 
+        current = new Order(intent.getIntExtra(MainActivity.SERIAL_NUMBER_IDENTIFIER, -1));
         for(String pizza : currentOrder) {
             current.add(Pizza.stringToPizza(pizza));
         }
@@ -142,6 +143,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                setResult(MainActivity.FAILED_RESULT, null);
                 this.finish();
                 return true;
         }
