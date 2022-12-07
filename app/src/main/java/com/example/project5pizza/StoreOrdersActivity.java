@@ -1,5 +1,7 @@
 package com.example.project5pizza;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ import pizzaManager.Topping;
 public class StoreOrdersActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ListView pizzaOrders;
+    Button cancelOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class StoreOrdersActivity extends AppCompatActivity implements AdapterVie
         setContentView(R.layout.storeorders);
 
         pizzaOrders = (ListView)findViewById(R.id.pizzaOrders);
+        cancelOrder = (Button)findViewById(R.id.cancelOrder);
 
         ArrayList<Order> selectedOrders = new ArrayList<Order>();
 
@@ -45,6 +50,13 @@ public class StoreOrdersActivity extends AppCompatActivity implements AdapterVie
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        cancelOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlertDialog("Order More Pizza!");
+            }
+        });
+
     }
 
     @Override
@@ -56,5 +68,19 @@ public class StoreOrdersActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    private void showAlertDialog(String message){
+        AlertDialog dialog = new AlertDialog.Builder(StoreOrdersActivity.this)
+                .setTitle("Deleted Order!")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create();
+        dialog.show();
     }
 }

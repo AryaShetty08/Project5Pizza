@@ -246,7 +246,6 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         addToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAlertDialog("Check Current Order!");
                 Intent intent = new Intent();
                 intent.putExtra(MainActivity.PIZZA_STRING_IDENTIFIER, orderInProgress.toString());
                 setResult(MainActivity.PIZZA_ACTIVITY_RESULT, intent);
@@ -255,20 +254,6 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         });
 
         initializeFirstPizza();
-    }
-
-    private void showAlertDialog(String message){
-        AlertDialog dialog = new AlertDialog.Builder(PizzaOrderingActivity.this)
-                .setTitle("Added Pizza!")
-                .setMessage(message)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                }).create();
-        dialog.show();
     }
 
 }

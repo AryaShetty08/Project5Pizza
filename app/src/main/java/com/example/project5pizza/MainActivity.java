@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
         this.pizzaList = new ArrayList<String>();
         this.orderList = new ArrayList<Order>();
         setImageViews();
+        if(savedInstanceState!=null){
+            this.pizzaList = savedInstanceState.getStringArrayList("MyArrayList");
+        }
     }
 
     /**
@@ -108,6 +111,11 @@ public class MainActivity extends AppCompatActivity {
     private void setImageViews(){
         pizzaOrder = (ImageView)findViewById(R.id.pizzaOrder);
         pizzaOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * On Click method to switch activities when a button is clicked
+             * This method switches to pizza ordering activity
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent switchToPizza = new Intent(getApplicationContext(), PizzaOrderingActivity.class);
@@ -117,6 +125,11 @@ public class MainActivity extends AppCompatActivity {
 
         currentOrder = (ImageView)findViewById(R.id.currentOrder);
         currentOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * On Click method to switch activities when a button is clicked
+             * This method switches to current order activity
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent switchToCurrentOrder = new Intent(getApplicationContext(), CurrentOrderActivity.class);
@@ -127,6 +140,11 @@ public class MainActivity extends AppCompatActivity {
 
         storeOrders = (ImageView)findViewById(R.id.storeOrders);
         storeOrders.setOnClickListener(new View.OnClickListener() {
+            /**
+             * On Click method to switch activities when a button is clicked
+             * This method switches to store order activity
+             * @param view
+             */
             @Override
             public void onClick(View view) {
                 Intent switchToStoreOrder = new Intent(getApplicationContext(), StoreOrdersActivity.class);
