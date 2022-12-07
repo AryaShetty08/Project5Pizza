@@ -20,6 +20,12 @@ import java.util.ArrayList;
 
 import pizzaManager.*;
 
+/**
+ * Activity class for Activity Main Layout
+ * Hub that can access all other activities
+ * Responsible for acting as a bridge to transport data amongst activities
+ * @author Arya Shetty, John Greaney-Cheng
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static final int PIZZA_ACTIVITY_RESULT = 1;
@@ -31,13 +37,19 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Pizza> pizzaList;
     private ArrayList<Order> orderList;
-    ImageView pizzaOrder;
-    ImageView currentOrder;
-    ImageView storeOrders;
+    private ImageView pizzaOrder;
+    private ImageView currentOrder;
+    private ImageView storeOrders;
 
-    ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
+    private ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
+                /**
+                 * Stores Pizzas ordered in PizzaOrderingActivity in an ArrayList
+                 * ArrayList will be used when Current Order Activity is launched
+                 * to help place orders
+                 * @param result Data from PizzaOrderingActivity (contains Pizzas that were ordered)
+                 */
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result != null && result.getResultCode() == PIZZA_ACTIVITY_RESULT){
@@ -53,17 +65,24 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         this.pizzaList = new ArrayList<Pizza>();
         this.orderList = new ArrayList<Order>();
         setImageViews();
     }
 
+    /**
+     * Private helper method to initialize Image Views
+     * Also sets up listeners to move data to and from
+     * other activities when launching them
+     */
     private void setImageViews(){
         pizzaOrder = (ImageView)findViewById(R.id.pizzaOrder);
         pizzaOrder.setOnClickListener(new View.OnClickListener() {
