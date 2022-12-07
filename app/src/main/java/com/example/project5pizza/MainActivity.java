@@ -33,12 +33,13 @@ public class MainActivity extends AppCompatActivity {
 
     public static final int PIZZA_ACTIVITY_RESULT = 1;
     public static final String PIZZA_STRING_IDENTIFIER = "Pizza";
+    public static final String PIZZA_LIST_IDENTIFIER = "Pizza List";
     public static final int ORDER_ACTIVITY_RESULT = 2;
     public static final String ORDER_ARRAYLIST_IDENTIFIER = "Order";
     public static final int STORE_ORDER_ACTIVITY_RESULT = 3;
     public static final String STORE_ORDER_ARRAYLIST_IDENTIFIER = "Store Order";
 
-    private ArrayList<Pizza> pizzaList;
+    private ArrayList<String> pizzaList;
     private ArrayList<Order> orderList;
     private ImageView pizzaOrder;
     private ImageView currentOrder;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     if (result != null && result.getResultCode() == PIZZA_ACTIVITY_RESULT){
                         Intent intent = result.getData();
                         if (intent != null){
-                            Pizza pizza = Pizza.stringToPizza(intent.getStringExtra(PIZZA_STRING_IDENTIFIER));
+                            String pizza = intent.getStringExtra(PIZZA_STRING_IDENTIFIER);
                             pizzaList.add(pizza);
                             Toast.makeText(getApplicationContext(), "Added Pizza to Order :)", Toast.LENGTH_LONG).show();
                         }
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.pizzaList = new ArrayList<Pizza>();
+        this.pizzaList = new ArrayList<String>();
         this.orderList = new ArrayList<Order>();
         setImageViews();
     }
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent switchToCurrentOrder = new Intent(getApplicationContext(), CurrentOrderActivity.class);
+                switchToCurrentOrder.putStringArrayListExtra(PIZZA_LIST_IDENTIFIER, pizzaList);
                 startActivity(switchToCurrentOrder);
             }
         });

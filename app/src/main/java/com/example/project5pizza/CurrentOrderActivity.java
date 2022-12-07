@@ -6,6 +6,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.Intent;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,6 +28,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         Button removePizza = (Button)findViewById(R.id.cancelOrder);
 
         ArrayList<Pizza> selectedPizza = new ArrayList<Pizza>();
+
+        Intent intent = getIntent();
+        ArrayList<String> currentOrder = intent.getStringArrayListExtra(MainActivity.PIZZA_LIST_IDENTIFIER);
+        Toast.makeText(getApplicationContext(), currentOrder.get(0), Toast.LENGTH_LONG).show();
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, selectedPizza);
         currentPizza.setAdapter(arrayAdapter);
