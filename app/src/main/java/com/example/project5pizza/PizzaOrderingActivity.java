@@ -34,7 +34,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
     private ListView addToppings;
     private TextView crust;
     private RecyclerView recyclerView;
-    private Button addToOrder;
+    Button addToOrder;
     private RadioButton small;
     private RadioButton medium;
     private RadioButton large;
@@ -248,10 +248,9 @@ public class PizzaOrderingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showAlertDialog("Check Current Order!");
                 Intent intent = new Intent();
-                ArrayList<String> pizzaList = new ArrayList<String>();
-                pizzaList.add("Hello");
-                intent.putStringArrayListExtra(MainActivity.PIZZA_ARRAYLIST_IDENTIFIER, pizzaList);
+                intent.putExtra(MainActivity.PIZZA_STRING_IDENTIFIER, orderInProgress.toString());
                 setResult(MainActivity.PIZZA_ACTIVITY_RESULT, intent);
+                finish();
             }
         });
 

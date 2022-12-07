@@ -4,10 +4,12 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,7 +32,7 @@ import pizzaManager.*;
 public class MainActivity extends AppCompatActivity {
 
     public static final int PIZZA_ACTIVITY_RESULT = 1;
-    public static final String PIZZA_ARRAYLIST_IDENTIFIER = "Pizza";
+    public static final String PIZZA_STRING_IDENTIFIER = "Pizza";
     public static final int ORDER_ACTIVITY_RESULT = 2;
     public static final String ORDER_ARRAYLIST_IDENTIFIER = "Order";
     public static final int STORE_ORDER_ACTIVITY_RESULT = 3;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView currentOrder;
     private ImageView storeOrders;
 
-    private ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
+    ActivityResultLauncher<Intent> pizzaActivityLauncher  = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 /**
@@ -55,11 +58,9 @@ public class MainActivity extends AppCompatActivity {
                     if (result != null && result.getResultCode() == PIZZA_ACTIVITY_RESULT){
                         Intent intent = result.getData();
                         if (intent != null){
-                            ArrayList<String> temp = intent.getStringArrayListExtra(PIZZA_ARRAYLIST_IDENTIFIER);
-                            for (String str: temp){
-                                Pizza pizza = Pizza.stringToPizza(str);
-                                pizzaList.add(pizza);
-                            }
+                            Pizza pizza = Pizza.stringToPizza(intent.getStringExtra(PIZZA_STRING_IDENTIFIER));
+                            pizzaList.add(pizza);
+                            Toast.makeText(getApplicationContext(), "Added Pizza to Order :)", Toast.LENGTH_LONG).show();
                         }
                     }
                 }
