@@ -63,6 +63,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         ArrayList<String> currentOrder = intent.getStringArrayListExtra(MainActivity.PIZZA_LIST_IDENTIFIER);
 
         current = new Order(intent.getIntExtra(MainActivity.SERIAL_NUMBER_IDENTIFIER, -1));
+
         for(String pizza : currentOrder) {
             current.add(Pizza.stringToPizza(pizza));
         }
@@ -119,8 +120,29 @@ public class CurrentOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentOrder.clear();
+                current = new Order(current.getSerialNumber());
                 resetCurrentOrder();
                 Toast.makeText(CurrentOrderActivity.this, "Removing All Pizzas...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                if (currentOrder.isEmpty()){
+                    setResult(MainActivity.FAILED_RESULT, null);
+                    finish();
+                }
+                ArrayList<Pizza> temp = current.getPizzaList();
+                ArrayList<String> pizzaList = new ArrayList<String>();
+                for (Pizza pizza: temp){
+                    pizzaList.add(pizza.toString());
+                }
+                intent.putStringArrayListExtra(MainActivity.ORDER_ARRAYLIST_IDENTIFIER, pizzaList);
+                intent.putExtra(MainActivity.ORDER_NUMBER_IDENTIFIER, current.getSerialNumber());
+                setResult(MainActivity.ORDER_ACTIVITY_RESULT, intent);
+                finish();
             }
         });
 
@@ -143,7 +165,14 @@ public class CurrentOrderActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(MainActivity.FAILED_RESULT, null);
+                Intent intent = new Intent();
+                ArrayList<Pizza> temp = current.getPizzaList();
+                ArrayList<String> pizzaList = new ArrayList<String>();
+                for (Pizza pizza: temp){
+                    pizzaList.add(pizza.toString());
+                }
+                intent.putStringArrayListExtra(MainActivity.ORDER_ARRAYLIST_IDENTIFIER, pizzaList);
+                setResult(MainActivity.FAILED_RESULT, intent);
                 this.finish();
                 return true;
         }

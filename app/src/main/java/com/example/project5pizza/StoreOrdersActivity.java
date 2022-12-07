@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import pizzaManager.Order;
+import pizzaManager.Pizza;
+import pizzaManager.StoreOrder;
 import pizzaManager.Topping;
 
 public class StoreOrdersActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -34,10 +36,22 @@ public class StoreOrdersActivity extends AppCompatActivity implements AdapterVie
         pizzaOrders = (ListView)findViewById(R.id.pizzaOrders);
         cancelOrder = (Button)findViewById(R.id.cancelOrder);
 
+        StoreOrder storeOrder = new StoreOrder();
+        Intent intent = getIntent();
+        int size = intent.getIntExtra("Size", -1);
+        for (int i = 0; i < size; i++){
+            Order order = new Order(intent.getIntExtra(String.valueOf(-i-1), -1));
+            ArrayList<String> temp = intent.getStringArrayListExtra(String.valueOf(i+1));
+            for (String str: temp){
+                order.add(Pizza.stringToPizza(str));
+            }
+            storeOrder.add(order);
+        }
+
         ArrayList<Order> selectedOrders = new ArrayList<Order>();
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, selectedOrders);
-        pizzaOrders.setAdapter(arrayAdapter);
+       // ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, storeOrder);
+        //pizzaOrders.setAdapter(arrayAdapter);
 
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
