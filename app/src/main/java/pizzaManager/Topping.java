@@ -5,20 +5,26 @@ package pizzaManager;
  * @author Arya Shetty, John Greaney-Cheng
  */
 public enum Topping {
-    SAUSAGE,
-    PEPPERONI,
-    GREEN_PEPPER,
-    ONION,
-    MUSHROOM,
-    BBQ_CHICKEN,
-    PROVOLONE,
-    CHEDDAR,
-    BEEF,
-    HAM,
-    BACON,
-    OLIVES,
-    PINEAPPLE,
-    SPINACH;
+    SAUSAGE(0),
+    PEPPERONI(1),
+    GREEN_PEPPER(2),
+    ONION(3),
+    MUSHROOM(4),
+    BBQ_CHICKEN(5),
+    PROVOLONE(6),
+    CHEDDAR(7),
+    BEEF(8),
+    HAM(9),
+    BACON(10),
+    OLIVES(11),
+    PINEAPPLE(12),
+    SPINACH(13);
+
+    private int order;
+
+    Topping(int order) {
+        this.order = order;
+    }
 
     /**
      * Method takes in topping name and returns a topping enum
@@ -33,5 +39,9 @@ public enum Topping {
             }
         }
         return null;
+    }
+
+    public int getOrder() {
+        return order;
     }
 }

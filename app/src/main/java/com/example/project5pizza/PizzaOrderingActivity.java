@@ -1,8 +1,5 @@
 package com.example.project5pizza;
 
-import static pizzaManager.Constant.*;
-import static pizzaManager.Topping.*;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,9 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pizzaManager.*;
 
@@ -27,39 +22,77 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PizzaOrderingActivity extends AppCompatActivity {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    Double pizzaPrice = 0.0;
+    private Double pizzaPrice = 0.0;
     private final PizzaFactory nypizza = new NYPizza();
     private final PizzaFactory chicpizza = new ChicagoPizza();
-    private Pizza orderInProgress = new Deluxe(chicpizza);
-    ListView addToppings;
-    TextView crust;
-    RecyclerView recyclerView;
-    Button addToOrder;
-    RadioButton small;
-    RadioButton medium;
-    RadioButton large;
-    TextView price;
-    ArrayList<Topping> selectedToppings = new ArrayList<Topping>();
+    private Pizza orderInProgress = chicpizza.createBuildYourOwn();
+    private ListView addToppings;
+    private TextView crust;
+    private RecyclerView recyclerView;
+    private Button addToOrder;
+    private RadioButton small;
+    private RadioButton medium;
+    private RadioButton large;
+    private TextView price;
+    private ArrayList<Topping> toppings = new ArrayList<Topping>();
 
-    RecyclerView.Adapter programAdaptper;
+    private RecyclerView.Adapter programAdaptper;
     RecyclerView.LayoutManager layoutmanager;
-    String[] programNameList = {"Chicago BYO", "Chicago Deluxe", "Chicago Meatzza", "Chicago BBQ Chicken",
+    private final String[] programNameList = {"Chicago BYO", "Chicago Deluxe", "Chicago Meatzza", "Chicago BBQ Chicken",
             "NY BYO", "NY Deluxe", "NY Meatzza", "NY BBQ Chicken"};
-    String[] programDescriptionList = {"Build Your Own", "So many toppings!", "So much meat!", "Contains Chicken!",
+    private final String[] programDescriptionList = {"Build Your Own", "So many toppings!", "So much meat!", "Contains Chicken!",
             "Build Your Own", "So many toppings!", "So much meat!", "Contains Chicken!"};
-    int[] programImages = {R.drawable.chicagopizzaimagebuildyourown, R.drawable.deluxepizzachicago, R.drawable.meatzzachicago,
+    private final int[] programImages = {R.drawable.chicagopizzaimagebuildyourown, R.drawable.deluxepizzachicago, R.drawable.meatzzachicago,
             R.drawable.bbqchickenchicago, R.drawable.newyorkbuildyourown, R.drawable.deluxepizzanewyork, R.drawable.meatzzanewyork,
             R.drawable.bbqchickennewyork};
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.pizzaordering);
+    private void initializeToppingsList() {
+        toppings.addAll(Arrays.asList(Topping.values()));
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, toppings);
+        addToppings.setChoiceMode(addToppings.CHOICE_MODE_MULTIPLE);
+        addToppings.setAdapter(arrayAdapter);
+    }
 
+    private void setPizzaSize(Size size) {
+        if(size.equals(Size.SMALL)) {
+            orderInProgress.setSize(Size.SMALL);
+        }
+        if(size.equals(Size.MEDIUM)) {
+            orderInProgress.setSize(Size.MEDIUM);
+        }
+        if(size.equals(Size.LARGE)) {
+            orderInProgress.setSize(Size.LARGE);
+        }
+        price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+    }
+
+    private void setSizeListener() {
+        small.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPizzaSize(Size.SMALL);
+            }
+        });
+        medium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPizzaSize(Size.MEDIUM);
+            }
+        });
+        large.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setPizzaSize(Size.LARGE);
+            }
+        });
+    }
+
+    private void initializeVariables() {
         addToppings = (ListView)findViewById(R.id.addToppings);
         crust = (TextView)findViewById(R.id.crust);
         recyclerView = findViewById(R.id.rvProgram);
@@ -68,105 +101,80 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         medium = (RadioButton)findViewById(R.id.medium);
         large = (RadioButton)findViewById(R.id.large);
         price = (TextView)findViewById(R.id.price);
-        price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+    }
 
-
-        small.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                  orderInProgress.setSize(Size.SMALL);
-                  //price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
-                price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
-            }
-        });
-
-        medium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orderInProgress.setSize(Size.MEDIUM);
-                price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
-            }
-        });
-
-        large.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                orderInProgress.setSize(Size.LARGE);
-                price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
-            }
-        });
-
-        ArrayList<Topping> toppings = new ArrayList<Topping>();
-        for (Topping topping: Topping.values()){
-            if (!toppings.contains(topping)){
-                toppings.add(topping);
-            }
-        }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, toppings);
-        addToppings.setChoiceMode(addToppings.CHOICE_MODE_MULTIPLE);
-        addToppings.setAdapter(arrayAdapter);
-
+    private void addToppingListener() {
         addToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if(orderInProgress.getToppings().contains((Topping) adapterView.getItemAtPosition(i))) {
-                    selectedToppings.add((Topping) adapterView.getItemAtPosition(i));
-                    orderInProgress.add(selectedToppings.get(i));
+                if (!(orderInProgress instanceof BuildYourOwn)){
+                    Boolean supposedToBeOnPizza = orderInProgress.getToppings().contains(toppings.get(i));
+                    addToppings.setItemChecked(i, supposedToBeOnPizza);
+                    return;
+                }
+                else if (!addToppings.isItemChecked(i)){
+                    orderInProgress.remove(toppings.get(i));
                     price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
                 }
-                else{
-                    selectedToppings.remove((Topping) adapterView.getItemAtPosition(i));
-                    orderInProgress.remove(selectedToppings.get(i));
+                else if (orderInProgress.add(toppings.get(i))){
                     price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+                }
+                else {
+                    addToppings.setItemChecked(i, false);
                 }
             }
         });
+    }
 
-
+    private void setPizzaChoiceListener() {
         programAdaptper = new ProgramAdapter(this, programNameList, programDescriptionList, programImages, new ProgramAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String s){
                 switch (s){
                     case "Chicago Deluxe":
-                        Pizza test = new Deluxe(chicpizza);
-                        initializePizza(test);
+                        Pizza pizza = chicpizza.createDeluxe();
+                        initializePizza(pizza);
+                        break;
                     case "Chicago BBQ Chicken":
                         initializePizza(chicpizza.createBBQChicken());
+                        break;
                     case "Chicago Meatzza":
                         initializePizza(chicpizza.createMeatzza());
+                        break;
                     case "Chicago BYO":
                         initializePizzaBYO(chicpizza.createBuildYourOwn());
+                        break;
                     case "NY Deluxe":
                         initializePizza(nypizza.createDeluxe());
+                        break;
                     case "NY BBQ Chicken":
                         initializePizza(nypizza.createBBQChicken());
+                        break;
                     case "NY Meatzza":
                         initializePizza(nypizza.createMeatzza());
+                        break;
                     case "NY BYO":
                         initializePizzaBYO(nypizza.createBuildYourOwn());
                 }
-                Toast.makeText(getBaseContext(), s, Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void setRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(programAdaptper);
         programAdaptper.getItemCount();
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        addToOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAlertDialog("Check Current Order!");
-                Intent intent = new Intent();
-                ArrayList<String> pizzaList = new ArrayList<String>();
-                pizzaList.add("Hello");
-                intent.putStringArrayListExtra(MainActivity.PIZZA_ARRAYLIST_IDENTIFIER, pizzaList);
-                setResult(MainActivity.PIZZA_ACTIVITY_RESULT, intent);
-            }
-        });
+    private void initializeFirstPizza(){
+        small.setChecked(true);
+        orderInProgress = chicpizza.createBuildYourOwn();
+        orderInProgress.setSize(Size.SMALL);
+        String c = "Crust:" + orderInProgress.getCrust().name();
+        crust.setText(c);
+        price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
     private void initializePizzaBYO(Pizza pizza) {
@@ -182,16 +190,15 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         else if(large.isChecked()){
             orderInProgress.setSize(Size.LARGE);
         }
-
-        addToppings.getChildAt(0).setEnabled(true);
-        addToppings.getChildAt(1).setEnabled(true);
-        addToppings.getChildAt(2).setEnabled(true);
-        addToppings.getChildAt(3).setEnabled(true);
-        //addToppings.setEnabled(true);
-        //dont know why crust is not being updated
-        //orderInProgress.add(SAUSAGE);
-        //orderInProgress.add(PEPPERONI);
-
+        for(int i = 0; i < toppings.size(); i++){
+            addToppings.setItemChecked(i, false);
+            if(i < 4) {
+                if(!addToppings.getChildAt(i).isEnabled())
+                {
+                    addToppings.getChildAt(i).setEnabled(true);
+                }
+            }
+        }
         price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
@@ -208,24 +215,47 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         else if(large.isChecked()){
             orderInProgress.setSize(Size.LARGE);
         }
-        crust.setText("Crust:" + (String)(orderInProgress.getCrust().toString()));
-        selectedToppings.addAll(orderInProgress.getToppings());
-        //orderInProgress.add(SAUSAGE);
-        //orderInProgress.add(PEPPERONI);
-
-
-
-        addToppings.setItemChecked(1, true);
-
-        addToppings.getChildAt(0).setEnabled(false);
-        addToppings.getChildAt(1).setEnabled(false);
-        addToppings.getChildAt(2).setEnabled(false);
-        addToppings.getChildAt(3).setEnabled(false);
-
-        //addToppings.getChildAt(1).setContextClickable(false);
-        //addToppings.setEnabled(false);
-
+        for(int i = 0; i < toppings.size(); i++){
+            addToppings.setItemChecked(i, false);
+            if(i < 4) {
+                if(addToppings.getChildAt(i).isEnabled())
+                {
+                    addToppings.getChildAt(i).setEnabled(false);
+                }
+            }
+        }
+        for(Topping topping: orderInProgress.getToppings()){
+            addToppings.setItemChecked(topping.getOrder(), true);
+        }
         price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pizzaordering);
+
+        initializeVariables();
+        setSizeListener();
+        initializeToppingsList();
+        addToppingListener();
+        setPizzaChoiceListener();
+        setRecyclerView();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        addToOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlertDialog("Check Current Order!");
+                Intent intent = new Intent();
+                ArrayList<String> pizzaList = new ArrayList<String>();
+                pizzaList.add("Hello");
+                intent.putStringArrayListExtra(MainActivity.PIZZA_ARRAYLIST_IDENTIFIER, pizzaList);
+                setResult(MainActivity.PIZZA_ACTIVITY_RESULT, intent);
+            }
+        });
+
+        initializeFirstPizza();
     }
 
     private void showAlertDialog(String message){
