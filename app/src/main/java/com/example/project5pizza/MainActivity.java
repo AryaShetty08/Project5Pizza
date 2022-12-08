@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> currentOrderActivityLauncher  = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
+                /**
+                 * Stores orders placed in CurrentOrderActivity in an ArrayList
+                 * ArrayList will be used when Store Order Activity is launched
+                 * to help keep track of all the orders placed
+                 * @param result Data from CurrentOrderActivity (contains orders that were placed)
+                 */
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result != null) {
@@ -106,6 +112,12 @@ public class MainActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> storeOrderActivityLauncher  = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
+                /**
+                 * Stores List of Orders in StoreOrdersActivity in an ArrayList
+                 * ArrayList will be used when StoreOrdersActivity is launched and relaunched
+                 * to help save orders that were made
+                 * @param result Data from StoreOrdersActivity (contains orders that were placed)
+                 */
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result != null && result.getResultCode() == STORE_ORDER_ACTIVITY_RESULT){

@@ -57,7 +57,8 @@
         android:id="@+id/subTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="4dp"
         android:fontFamily="cursive"
         android:text="@string/subtotal"
         android:textColor="#0B0A0A"
@@ -66,29 +67,29 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/totalprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="180dp"
+        android:fontFamily="cursive"
+        android:text="@string/price_total"
+        android:textColor="#121111"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
         android:id="@+id/salesTax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
         android:fontFamily="cursive"
         android:text="@string/sales_tax"
         android:textColor="#0B0A0A"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/totalprice"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/totalprice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="240dp"
-        android:fontFamily="cursive"
-        android:text="@string/price_total"
-        android:textColor="#121111"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -109,8 +110,8 @@
 
     <ListView
         android:id="@+id/currentPizza"
-        android:layout_width="409dp"
-        android:layout_height="294dp"
+        android:layout_width="404dp"
+        android:layout_height="333dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="1dp"

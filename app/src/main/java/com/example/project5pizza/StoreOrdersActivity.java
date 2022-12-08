@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import pizzaManager.Order;
 import pizzaManager.Pizza;
 import pizzaManager.StoreOrder;
-import pizzaManager.Topping;
 
 public class StoreOrdersActivity extends AppCompatActivity {
 
@@ -34,16 +32,17 @@ public class StoreOrdersActivity extends AppCompatActivity {
     StoreOrder temp;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     StoreOrder storeOrder;
+    Spinner spinner;
+    ArrayAdapter arrayAdapter;
+    ArrayAdapter arrayAdapter1;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.storeorders);
-
+    private void initializeStoreVariables() {
         pizzaOrders = (ListView)findViewById(R.id.pizzaOrders);
         cancelOrder = (Button)findViewById(R.id.cancelOrder);
         total = (TextView)findViewById(R.id.total);
+    }
 
+    private void unpackIntent() {
         storeOrder = new StoreOrder();
         Intent intent = getIntent();
         int size = intent.getIntExtra("Size", -1);
@@ -55,7 +54,9 @@ public class StoreOrdersActivity extends AppCompatActivity {
             }
             storeOrder.add(order);
         }
+    }
 
+    private void setUpListAndSpinner() {
         ArrayList<String> pizzaInOrder = new ArrayList<>();
         if (!storeOrder.getOrderList().isEmpty()){
             for(Pizza pizza : storeOrder.getOrderList().get(0).getPizzaList()) {
@@ -66,22 +67,16 @@ public class StoreOrdersActivity extends AppCompatActivity {
         else {
             total.setText("Order Total $");
         }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pizzaInOrder);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pizzaInOrder);
         pizzaOrders.setAdapter(arrayAdapter);
-
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
-
+        spinner = (Spinner)findViewById(R.id.spinner);
         ArrayList<Integer> orderNumbers = new ArrayList<>();
-
         for(Order order : storeOrder.getOrderList()) {
             orderNumbers.add(order.getSerialNumber());
         }
-
-        ArrayAdapter arrayAdapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, orderNumbers);
+        arrayAdapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, orderNumbers);
         arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter1);
-        //spinner.setOnItemSelectedListener(this);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -93,15 +88,14 @@ public class StoreOrdersActivity extends AppCompatActivity {
                 switchOrderList(pizzaInOrder);
                 total.setText("Order Total $" + df.format(storeOrder.getOrderList().get(i).getTotal()));
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 return;
             }
         });
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    private void setUpCancelOrder() {
         cancelOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,13 +110,27 @@ public class StoreOrdersActivity extends AppCompatActivity {
                 }
                 else {
                     storeOrder.remove(storeOrder.getOrderList().get(orderPosition));
-                    setPizzaOrdersAdapter();
+                    arrayAdapter.notifyDataSetChanged();
                     arrayAdapter1.notifyDataSetChanged();
+                    spinner.setAdapter(setSpinnerAdapter());
                     spinner.setSelection(0);
                 }
                 showAlertDialog("Order More Pizza!");
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.storeorders);
+
+        initializeStoreVariables();
+        unpackIntent();
+        setUpListAndSpinner();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpListAndSpinner();
+        setUpCancelOrder();
 
     }
 
@@ -131,15 +139,15 @@ public class StoreOrdersActivity extends AppCompatActivity {
         pizzaOrders.setAdapter(arrayAdapter2);
     }
 
-    private void setPizzaOrdersAdapter() {
-        ArrayList<String> pizzaInOrder = new ArrayList<>();
-        for(Pizza pizza : temp.getOrderList().get(0).getPizzaList()) {
-            pizzaInOrder.add(pizza.toString());
+    private ArrayAdapter setSpinnerAdapter() {
+        ArrayList<Integer> orderNumbers = new ArrayList<>();
+        for(Order order : storeOrder.getOrderList()) {
+            orderNumbers.add(order.getSerialNumber());
         }
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pizzaInOrder);
-        pizzaOrders.setAdapter(arrayAdapter);
-        total.setText("Order Total $" + df.format(temp.getOrderList().get(0).getTotal()));
+        ArrayAdapter arrayAdapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, orderNumbers);
+        return arrayAdapter2;
     }
+
 
     private void showAlertDialog(String message){
         AlertDialog dialog = new AlertDialog.Builder(StoreOrdersActivity.this)
