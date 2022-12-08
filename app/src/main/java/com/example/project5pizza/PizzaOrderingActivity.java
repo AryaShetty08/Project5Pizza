@@ -1,6 +1,5 @@
 package com.example.project5pizza;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,12 +10,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import pizzaManager.*;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -27,6 +24,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * PizzaOrderingActivity class for pizzaOrdering Main Layout
+ * This view lets users order pizzas that will be transferred
+ * To the Current Order View
+ * @author Arya Shetty, John Greaney-Cheng
+ */
 public class PizzaOrderingActivity extends AppCompatActivity {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
@@ -44,7 +47,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
     private TextView price;
     private ArrayList<Topping> toppings = new ArrayList<Topping>();
 
-    private RecyclerView.Adapter programAdaptper;
+    private RecyclerView.Adapter programAdapter;
     RecyclerView.LayoutManager layoutmanager;
     private final String[] programNameList = {"Chicago BYO", "Chicago Deluxe", "Chicago Meatzza", "Chicago BBQ Chicken",
             "NY BYO", "NY Deluxe", "NY Meatzza", "NY BBQ Chicken"};
@@ -54,6 +57,11 @@ public class PizzaOrderingActivity extends AppCompatActivity {
             R.drawable.bbqchickenchicago, R.drawable.newyorkbuildyourown, R.drawable.deluxepizzanewyork, R.drawable.meatzzanewyork,
             R.drawable.bbqchickennewyork};
 
+    /**
+     * This method initializes the listview for toppings so that users
+     * Can choose toppings for their build your own pizzas
+     * The List view sets up an array adapter with a multiple choice layout
+     */
     private void initializeToppingsList() {
         toppings.addAll(Arrays.asList(Topping.values()));
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, toppings);
@@ -61,6 +69,11 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         addToppings.setAdapter(arrayAdapter);
     }
 
+    /**
+     * This method sets the size of the pizza the user wants
+     * To an in progress pizza that will be transferred to current order view
+     * @param size, enum that represents what size pizza user wants
+     */
     private void setPizzaSize(Size size) {
         if(size.equals(Size.SMALL)) {
             orderInProgress.setSize(Size.SMALL);
@@ -74,6 +87,10 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
+    /**
+     * This method checks which radio button was selected by the user
+     * And then it correspondingly changes the size of the pizza being made
+     */
     private void setSizeListener() {
         small.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +112,10 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method initializes all the public variables that are present in
+     * PizzaOrdering view, such as the recycler view, listview, and radio buttons
+     */
     private void initializeVariables() {
         addToppings = (ListView)findViewById(R.id.addToppings);
         crust = (TextView)findViewById(R.id.crust);
@@ -106,6 +127,12 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         price = (TextView)findViewById(R.id.price);
     }
 
+    /**
+     * This method creates the toppings listview listener
+     * So that users can click on a topping while a build your own pizza is selected
+     * And the price will be updated as well as the item in the listview will be checked
+     * If the item is unchecked the price will also be updated
+     */
     private void addToppingListener() {
         addToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -129,8 +156,14 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method creates the pizza choices recycler view listener
+     * When users click on a specific pizza or row item, the listener gets the position
+     * Then the method compares the text name in the single_item view to a specific pizza
+     * To initialize the pizza and update the crust, price, and/or toppings
+     */
     private void setPizzaChoiceListener() {
-        programAdaptper = new ProgramAdapter(this, programNameList, programDescriptionList, programImages, new ProgramAdapter.OnItemClickListener() {
+        programAdapter = new ProgramAdapter(this, programNameList, programDescriptionList, programImages, new ProgramAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String s){
                 switch (s){
@@ -163,14 +196,22 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method creates the recycler view and sets the layout based on
+     * The program adapter that was initialized earlier
+     */
     private void setRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(programAdaptper);
-        programAdaptper.getItemCount();
+        recyclerView.setAdapter(programAdapter);
+        programAdapter.getItemCount();
     }
 
+    /**
+     * This method makes sure that when the activity is launched that certain variables
+     * Are already selected
+     */
     private void initializeFirstPizza(){
         small.setChecked(true);
         orderInProgress = chicpizza.createBuildYourOwn();

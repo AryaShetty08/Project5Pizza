@@ -35,8 +35,8 @@ public class StoreOrdersActivity extends AppCompatActivity {
     private static final DecimalFormat df = new DecimalFormat("0.00");
     StoreOrder storeOrder;
     Spinner spinner;
-    ArrayAdapter arrayAdapter;
-    ArrayAdapter arrayAdapter1;
+    ArrayAdapter arrayAdapterListView;
+    ArrayAdapter arrayAdapterSpinner;
 
     private void initializeStoreVariables() {
         pizzaOrders = (ListView)findViewById(R.id.pizzaOrders);
@@ -69,16 +69,16 @@ public class StoreOrdersActivity extends AppCompatActivity {
         else {
             total.setText("Order Total $");
         }
-        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pizzaInOrder);
-        pizzaOrders.setAdapter(arrayAdapter);
+        arrayAdapterListView = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pizzaInOrder);
+        pizzaOrders.setAdapter(arrayAdapterListView);
         spinner = (Spinner)findViewById(R.id.spinner);
         ArrayList<Integer> orderNumbers = new ArrayList<>();
         for(Order order : storeOrder.getOrderList()) {
             orderNumbers.add(order.getSerialNumber());
         }
-        arrayAdapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, orderNumbers);
-        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter1);
+        arrayAdapterSpinner = new ArrayAdapter(this, android.R.layout.simple_spinner_item, orderNumbers);
+        arrayAdapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapterSpinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -112,8 +112,8 @@ public class StoreOrdersActivity extends AppCompatActivity {
                 }
                 else {
                     storeOrder.remove(storeOrder.getOrderList().get(orderPosition));
-                    arrayAdapter.notifyDataSetChanged();
-                    arrayAdapter1.notifyDataSetChanged();
+                    arrayAdapterListView.notifyDataSetChanged();
+                    arrayAdapterSpinner.notifyDataSetChanged();
                     spinner.setAdapter(setSpinnerAdapter());
                     spinner.setSelection(0);
                 }
