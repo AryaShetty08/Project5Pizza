@@ -27,10 +27,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="131dp"
         android:layout_marginEnd="132dp"
-        android:layout_marginBottom="240dp"
+        android:layout_marginBottom="152dp"
         android:text="@string/cancel_order"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -62,7 +63,7 @@
     <ListView
         android:id="@+id/pizzaOrders"
         android:layout_width="409dp"
-        android:layout_height="294dp"
+        android:layout_height="349dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="1dp"

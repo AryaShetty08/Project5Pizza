@@ -28,7 +28,6 @@ import pizzaManager.Topping;
 
 public class CurrentOrderActivity extends AppCompatActivity {
     private static final DecimalFormat df = new DecimalFormat("0.00");
-    //private ArrayList<Pizza> currentOrder;
 
     ListView pizzaOrder;
     TextView subtotal;
@@ -41,13 +40,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
     Order current;
     int pizzaToRemove;
     ArrayAdapter arrayAdapter;
+    ArrayList<String> currentOrder;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.currentorder);
-
+    private void setCurrentOrderVariables() {
         pizzaOrder = (ListView)findViewById(R.id.currentPizza);
         removePizza = (Button)findViewById(R.id.cancelOrder);
         subtotal = (TextView)findViewById(R.id.subTotal);
@@ -56,11 +51,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
         placeOrder = (Button)findViewById(R.id.placeOrder);
         clearOrder = (Button)findViewById(R.id.clearOrder);
         orderNumber = (TextView)findViewById(R.id.currentNumber);
+    }
 
-        ArrayList<Pizza> selectedPizza = new ArrayList<Pizza>();
-
+    private void setUpInterface() {
         Intent intent = getIntent();
-        ArrayList<String> currentOrder = intent.getStringArrayListExtra(MainActivity.PIZZA_LIST_IDENTIFIER);
+        currentOrder = intent.getStringArrayListExtra(MainActivity.PIZZA_LIST_IDENTIFIER);
 
         current = new Order(intent.getIntExtra(MainActivity.SERIAL_NUMBER_IDENTIFIER, -1));
 
@@ -78,9 +73,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
             pizzaOrder.setChoiceMode(pizzaOrder.CHOICE_MODE_SINGLE);
             pizzaOrder.setAdapter(arrayAdapter);
         }
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+    private void setUpRemoveListener() {
         pizzaOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -104,8 +99,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-
+    private void setUpClearListener(){
         clearOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +112,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 Toast.makeText(CurrentOrderActivity.this, "Removing All Pizzas...", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    private void setUpPlaceOrderListener() {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +134,19 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.currentorder);
+
+        setCurrentOrderVariables();
+        setUpInterface();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpRemoveListener();
+        setUpClearListener();
+        setUpPlaceOrderListener();
 
     }
 
