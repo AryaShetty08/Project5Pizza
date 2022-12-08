@@ -98,17 +98,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
                         Toast.makeText(CurrentOrderActivity.this, current.getPizzaList().get(pizzaToRemove).toString(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (current.isEmpty()){
-                        subtotal.setText("Subtotal $");
-                        salestax.setText("Sales Tax $");
-                        ordertotal.setText("Order Total $");
-                        orderNumber.setText("Order Number: ");
-                    }
-                    else {
-                        subtotal.setText("Subtotal $" + df.format(current.getSubtotal()));
-                        salestax.setText("Sales Tax $" + df.format(current.getTax()));
-                        ordertotal.setText("Order Total $" + df.format(current.getTotal()));
-                    }
+                    updateTextPrices();
                     removeOnePizza(pizzaToRemove);
                     Toast.makeText(CurrentOrderActivity.this, "Removing Pizza...", Toast.LENGTH_SHORT).show();
                 }
@@ -121,7 +111,8 @@ public class CurrentOrderActivity extends AppCompatActivity {
             public void onClick(View view) {
                 currentOrder.clear();
                 current = new Order(current.getSerialNumber());
-                resetCurrentOrder();
+                pizzaOrder.setAdapter(null);
+                updateTextPrices();
                 Toast.makeText(CurrentOrderActivity.this, "Removing All Pizzas...", Toast.LENGTH_SHORT).show();
             }
         });
@@ -148,12 +139,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     }
 
-    private void resetCurrentOrder() {
-        pizzaOrder.setAdapter(null);
-        subtotal.setText("Subtotal $");
-        salestax.setText("Sales Tax $");
-        ordertotal.setText("Order Total $");
-        orderNumber.setText("Order Number: ");
+    private void updateTextPrices() {
+        subtotal.setText("Subtotal $" + df.format(current.getSubtotal()));
+        salestax.setText("Sales Tax $" + df.format(current.getTax()));
+        ordertotal.setText("Order Total $" + df.format(current.getTotal()));
     }
 
     private void removeOnePizza(int position) {
@@ -172,7 +161,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
                     pizzaList.add(pizza.toString());
                 }
                 intent.putStringArrayListExtra(MainActivity.ORDER_ARRAYLIST_IDENTIFIER, pizzaList);
-                setResult(MainActivity.STORE_ORDER_ACTIVITY_RESULT, intent);
+                setResult(MainActivity.ORDER_ACTIVITY_BACK_BUTTON, intent);
                 this.finish();
                 return true;
         }

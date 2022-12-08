@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int ORDER_ACTIVITY_RESULT = 2;
     public static final String ORDER_ARRAYLIST_IDENTIFIER = "Order";
     public static final String ORDER_NUMBER_IDENTIFIER = "Order Number";
-    public static final int STORE_ORDER_ACTIVITY_RESULT = 3;
+    public static final int ORDER_ACTIVITY_BACK_BUTTON = 3;
+    public static final int STORE_ORDER_ACTIVITY_RESULT = 4;
     public static final String STORE_ORDER_ARRAYLIST_IDENTIFIER = "Store Order";
 
     private ArrayList<String> pizzaList;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Added Order :)", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        if (result.getResultCode() == FAILED_RESULT) {
+                        if (result.getResultCode() == ORDER_ACTIVITY_BACK_BUTTON) {
                             Intent intent = result.getData();
                             if (intent != null) {
                                 pizzaList = intent.getStringArrayListExtra(ORDER_ARRAYLIST_IDENTIFIER);
