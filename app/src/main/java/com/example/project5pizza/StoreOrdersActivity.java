@@ -11,14 +11,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
-import java.time.chrono.MinguoChronology;
 import java.util.ArrayList;
 
 import pizzaManager.Order;
@@ -37,7 +35,6 @@ public class StoreOrdersActivity extends AppCompatActivity {
     Button cancelOrder;
     TextView total;
     int orderPosition;
-    StoreOrder temp;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     StoreOrder storeOrder;
     Spinner spinner;

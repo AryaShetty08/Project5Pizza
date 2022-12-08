@@ -48,7 +48,6 @@ public class PizzaOrderingActivity extends AppCompatActivity {
     private ArrayList<Topping> toppings = new ArrayList<Topping>();
 
     private RecyclerView.Adapter programAdapter;
-    RecyclerView.LayoutManager layoutmanager;
     private final String[] programNameList = {"Chicago BYO", "Chicago Deluxe", "Chicago Meatzza", "Chicago BBQ Chicken",
             "NY BYO", "NY Deluxe", "NY Meatzza", "NY BBQ Chicken"};
     private final String[] programDescriptionList = {"Build Your Own", "So many toppings!", "So much meat!", "Contains Chicken!",
@@ -151,7 +150,7 @@ public class PizzaOrderingActivity extends AppCompatActivity {
              * When item is being clicked and checked the pizza adds the topping
              * And the price is updated
              * But when the item is being unchecked the topping is removed
-             * The topping is recieved by the integer i, which is the position in listview
+             * The topping is received by the integer i, which is the position in listview
              * @param adapterView, default onItemClick parameter
              * @param view, default onItemClick parameter
              * @param i, the position the user clicked on in listview

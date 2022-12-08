@@ -15,17 +15,18 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import pizzaManager.Order;
 import pizzaManager.Pizza;
-import pizzaManager.Topping;
 
+/**
+ * CurrentOrderActivity class for current order Layout
+ * This view lets users place orders for pizzas they made that will be transferred
+ * To the Store Order View
+ * @author Arya Shetty, John Greaney-Cheng
+ */
 public class CurrentOrderActivity extends AppCompatActivity {
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
@@ -108,8 +109,6 @@ public class CurrentOrderActivity extends AppCompatActivity {
                 if(pizzaToRemove < currentOrder.size()){
                     Pizza removing = Pizza.stringToPizza(currentOrder.get(pizzaToRemove));
                     if (!current.remove(removing)){
-                        Toast.makeText(CurrentOrderActivity.this, removing.toString(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(CurrentOrderActivity.this, current.getPizzaList().get(pizzaToRemove).toString(), Toast.LENGTH_SHORT).show();
                         return;
                     }
                     updateTextPrices();
