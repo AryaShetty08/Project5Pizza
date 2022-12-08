@@ -33,18 +33,21 @@ import pizzaManager.*;
 public class MainActivity extends AppCompatActivity {
 
     public static final int FAILED_RESULT = -1;
+
     public static final int PIZZA_ACTIVITY_RESULT = 1;
     public static final String PIZZA_STRING_IDENTIFIER = "Pizza";
-    public static final String PIZZA_LIST_IDENTIFIER = "Pizza List";
+
+    public static final String CURRENT_ORDER_PIZZA_LIST_IDENTIFIER = "Pizza List";
     public static final String SERIAL_NUMBER_IDENTIFIER = "Serial Code";
     public static final int ORDER_ACTIVITY_RESULT = 2;
     public static final String ORDER_ARRAYLIST_IDENTIFIER = "Order";
     public static final String ORDER_NUMBER_IDENTIFIER = "Order Number";
     public static final int ORDER_ACTIVITY_BACK_BUTTON = 3;
-    public static final int STORE_ORDER_ACTIVITY_RESULT = 4;
-    public static final String STORE_ORDER_ARRAYLIST_IDENTIFIER = "Store Order";
 
-    private ArrayList<String> pizzaList;
+    public static final int STORE_ORDER_ACTIVITY_RESULT = 4;
+    public static final String NUMBER_OF_ORDERS = "Size";
+
+    private ArrayList<String> currentOrderPizzaList;
     private int currentSerialNumber;
     private ArrayList<Order> orderList;
 
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = result.getData();
                         if (intent != null){
                             String pizza = intent.getStringExtra(PIZZA_STRING_IDENTIFIER);
-                            pizzaList.add(pizza);
+                            currentOrderPizzaList.add(pizza);
                             Toast.makeText(getApplicationContext(), "Added Pizza to Order :)", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -96,14 +99,14 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 orderList.add(temp);
                                 currentSerialNumber++;
-                                pizzaList.clear();
+                                currentOrderPizzaList.clear();
                                 Toast.makeText(getApplicationContext(), "Added Order :)", Toast.LENGTH_SHORT).show();
                             }
                         }
                         if (result.getResultCode() == ORDER_ACTIVITY_BACK_BUTTON) {
                             Intent intent = result.getData();
                             if (intent != null) {
-                                pizzaList = intent.getStringArrayListExtra(ORDER_ARRAYLIST_IDENTIFIER);
+                                currentOrderPizzaList = intent.getStringArrayListExtra(ORDER_ARRAYLIST_IDENTIFIER);
                             }
                         }
                     }
@@ -124,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     if (result != null && result.getResultCode() == STORE_ORDER_ACTIVITY_RESULT){
                         Intent intent = result.getData();
                         if (intent != null){
-                            int size = intent.getIntExtra("Size", -1);
+                            int size = intent.getIntExtra(NUMBER_OF_ORDERS, -1);
+                            orderList.clear();
                             for (int i = 0; i < size; i++){
                                 Order order = new Order(intent.getIntExtra(String.valueOf(-i-1), -1));
                                 ArrayList<String> temp = intent.getStringArrayListExtra(String.valueOf(i+1));
@@ -146,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.pizzaList = new ArrayList<String>();
+        this.currentOrderPizzaList = new ArrayList<String>();
         this.orderList = new ArrayList<Order>();
         this.currentSerialNumber = 1;
         setImageViews();
@@ -182,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent switchToCurrentOrder = new Intent(getApplicationContext(), CurrentOrderActivity.class);
-                switchToCurrentOrder.putStringArrayListExtra(PIZZA_LIST_IDENTIFIER, pizzaList);
+                switchToCurrentOrder.putStringArrayListExtra(CURRENT_ORDER_PIZZA_LIST_IDENTIFIER, currentOrderPizzaList);
                 switchToCurrentOrder.putExtra(SERIAL_NUMBER_IDENTIFIER, currentSerialNumber);
                 currentOrderActivityLauncher.launch(switchToCurrentOrder);
             }
@@ -207,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     switchToStoreOrder.putStringArrayListExtra(String.valueOf(i+1), toStoreOrder);
                     switchToStoreOrder.putExtra(String.valueOf(-i-1), orderList.get(i).getSerialNumber());
                 }
-                switchToStoreOrder.putExtra("Size", orderList.size());
+                switchToStoreOrder.putExtra(NUMBER_OF_ORDERS, orderList.size());
                 storeOrderActivityLauncher.launch(switchToStoreOrder);
             }
         });

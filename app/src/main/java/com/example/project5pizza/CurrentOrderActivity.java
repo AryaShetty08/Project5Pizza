@@ -55,7 +55,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     private void setUpInterface() {
         Intent intent = getIntent();
-        currentOrder = intent.getStringArrayListExtra(MainActivity.PIZZA_LIST_IDENTIFIER);
+        currentOrder = intent.getStringArrayListExtra(MainActivity.CURRENT_ORDER_PIZZA_LIST_IDENTIFIER);
 
         current = new Order(intent.getIntExtra(MainActivity.SERIAL_NUMBER_IDENTIFIER, -1));
 

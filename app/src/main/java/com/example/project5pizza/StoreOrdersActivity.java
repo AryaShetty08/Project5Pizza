@@ -11,12 +11,14 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.DecimalFormat;
+import java.time.chrono.MinguoChronology;
 import java.util.ArrayList;
 
 import pizzaManager.Order;
@@ -45,7 +47,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
     private void unpackIntent() {
         storeOrder = new StoreOrder();
         Intent intent = getIntent();
-        int size = intent.getIntExtra("Size", -1);
+        int size = intent.getIntExtra(MainActivity.NUMBER_OF_ORDERS, -1);
         for (int i = 0; i < size; i++){
             Order order = new Order(intent.getIntExtra(String.valueOf(-i-1), -1));
             ArrayList<String> temp = intent.getStringArrayListExtra(String.valueOf(i+1));
@@ -168,7 +170,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Intent intent = getIntent();
-                for (int i = 0; i < storeOrder.getOrderList().size() ; i++){
+                for (int i = 0; i < storeOrder.getOrderList().size(); i++){
                     Order tempOrder = storeOrder.getOrderList().get(i);
                     ArrayList<Pizza> tempMain = tempOrder.getPizzaList();
                     ArrayList<String> toMain = new ArrayList<>();
@@ -178,8 +180,8 @@ public class StoreOrdersActivity extends AppCompatActivity {
                     intent.putStringArrayListExtra(String.valueOf(i+1), toMain);
                     intent.putExtra(String.valueOf(-i-1), tempOrder.getSerialNumber());
                 }
-                intent.putExtra("Size", storeOrder.getOrderList().size());
-                setResult(MainActivity.FAILED_RESULT, intent);
+                intent.putExtra(MainActivity.NUMBER_OF_ORDERS, storeOrder.getOrderList().size());
+                setResult(MainActivity.STORE_ORDER_ACTIVITY_RESULT, intent);
                 this.finish();
                 return true;
         }
