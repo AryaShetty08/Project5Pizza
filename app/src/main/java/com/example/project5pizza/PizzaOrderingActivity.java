@@ -93,18 +93,30 @@ public class PizzaOrderingActivity extends AppCompatActivity {
      */
     private void setSizeListener() {
         small.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Sets pizza size to small when small radio button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 setPizzaSize(Size.SMALL);
             }
         });
         medium.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Sets pizza size to medium when medium radio button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 setPizzaSize(Size.MEDIUM);
             }
         });
         large.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Sets pizza size to large when large radio button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 setPizzaSize(Size.LARGE);
@@ -135,6 +147,16 @@ public class PizzaOrderingActivity extends AppCompatActivity {
      */
     private void addToppingListener() {
         addToppings.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * When item is being clicked and checked the pizza adds the topping
+             * And the price is updated
+             * But when the item is being unchecked the topping is removed
+             * The topping is recieved by the integer i, which is the position in listview
+             * @param adapterView, default onItemClick parameter
+             * @param view, default onItemClick parameter
+             * @param i, the position the user clicked on in listview
+             * @param l, default onItemClick parameter
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (!(orderInProgress instanceof BuildYourOwn)){
@@ -164,6 +186,10 @@ public class PizzaOrderingActivity extends AppCompatActivity {
      */
     private void setPizzaChoiceListener() {
         programAdapter = new ProgramAdapter(this, programNameList, programDescriptionList, programImages, new ProgramAdapter.OnItemClickListener() {
+            /**
+             * Creates the specific pizza the user wants based on recycler view option clicked
+             * @param s, the pizza string that the user has clicked on
+             */
             @Override
             public void onItemClick(String s){
                 switch (s){
@@ -210,7 +236,8 @@ public class PizzaOrderingActivity extends AppCompatActivity {
 
     /**
      * This method makes sure that when the activity is launched that certain variables
-     * Are already selected
+     * Are already selected and made, such as small radio button, build your own chicago pizza,
+     * Crust type, and price text
      */
     private void initializeFirstPizza(){
         small.setChecked(true);
@@ -221,6 +248,13 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
+    /**
+     * This is one of the two methods that is called when a user selects a pizza
+     * from the recycler view in pizza ordering activity, specifically for build your own
+     * It makes sure the in progress pizza is updated, which includes
+     * Size, crust, and the toppings selected from listview
+     * @param pizza, a pizza that is either chicago or new york style
+     */
     private void initializePizzaBYO(Pizza pizza) {
         orderInProgress = pizza;
         String c = "Crust:" + orderInProgress.getCrust().name();
@@ -246,6 +280,13 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
+    /**
+     * This is one of the two methods that is called when a user selects a pizza
+     * from the recycler view in pizza ordering activity, specifically for pre made
+     * It makes sure the in progress pizza is updated, which includes
+     * Size, crust, and the toppings that are already chosen based on the pizza selected
+     * @param pizza, a pizza that is either chicago or new york style
+     */
     private void initializePizza(Pizza pizza) {
         orderInProgress = pizza;
         String c = "Crust:" + orderInProgress.getCrust().name();
@@ -274,6 +315,14 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         price.setText("Pizza Price $:" + (String.valueOf(orderInProgress.price())));
     }
 
+    /**
+     * Starts when the activity is launched and on screen
+     * It calls the methods above to initialize variables
+     * And makes sure users can create their own pizzas
+     * It also holds the add to order button listener which sends data, pizza made,
+     * Back to main activity for the current order to now use, this is done by intents
+     * @param savedInstanceState, can be used to reinitialize previous saved states
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -288,6 +337,12 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         addToOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * When add to order is clicked the activity return to main activity
+             * And the data which is the pizza made is sent back to main activity
+             * Which will then be sent to current order using an intent
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -300,6 +355,12 @@ public class PizzaOrderingActivity extends AppCompatActivity {
         initializeFirstPizza();
     }
 
+    /**
+     * This method overrides the back button click so that data is still preserved
+     * When exiting the pizza ordering view instead of clicking the add to order button
+     * @param item, default parameter needed for method
+     * @return true if button returns to main and is executed properly
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
