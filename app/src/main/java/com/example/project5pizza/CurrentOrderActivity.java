@@ -85,6 +85,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
      */
     private void setUpRemoveListener() {
         pizzaOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * Updates instance variable to be the index of the user's currently selected pizza
+             * @param adapterView default onItemClick parameter
+             * @param view default onItemClick parameter
+             * @param i index of currently selected pizza
+             * @param l default onItemClick parameter
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 pizzaToRemove = i;
@@ -92,6 +99,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
 
         removePizza.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Removes pizza from current order and list view when button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 if(pizzaToRemove < currentOrder.size()){
@@ -114,6 +125,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
      */
     private void setUpClearListener(){
         clearOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Empties current order and list view when button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 currentOrder.clear();
@@ -130,6 +145,12 @@ public class CurrentOrderActivity extends AppCompatActivity {
      */
     private void setUpPlaceOrderListener() {
         placeOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Places an Order and returns user to Main Activity
+             * Sends Order data back to main to be
+             * collected as an order in the Store Order
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -193,6 +214,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
         arrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Overrides the back button so that data in main is updated based on changes in this activity
+     * For when clicking the back button to exit the current order view instead of
+     * clicking the place order button
+     * @param item, default parameter needed for method
+     * @return true if button returns to main and is executed properly
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
