@@ -119,8 +119,14 @@ public class CurrentOrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                if (currentOrder.isEmpty()){
-                    setResult(MainActivity.FAILED_RESULT, null);
+                if (current.getPizzaList().isEmpty()){
+                    ArrayList<Pizza> temp = current.getPizzaList();
+                    ArrayList<String> pizzaList = new ArrayList<String>();
+                    for (Pizza pizza: temp){
+                        pizzaList.add(pizza.toString());
+                    }
+                    intent.putStringArrayListExtra(MainActivity.ORDER_ARRAYLIST_IDENTIFIER, pizzaList);
+                    setResult(MainActivity.ORDER_ACTIVITY_BACK_BUTTON, intent);
                     finish();
                 }
                 ArrayList<Pizza> temp = current.getPizzaList();

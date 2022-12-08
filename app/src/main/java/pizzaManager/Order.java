@@ -77,9 +77,10 @@ public class Order implements Customizable{
     @Override
     public boolean remove(Object obj) {
         if (obj instanceof Pizza){
-            for (Pizza pizza: pizzaList){
-                if (obj.toString().equals(pizza.toString())){
-                    return pizzaList.remove(pizza);
+            for (int i = 0; i < pizzaList.size(); i++){
+                if (obj.toString().equals(pizzaList.get(i).toString())){
+                    pizzaList.remove(i);
+                    return true;
                 }
             }
         }
