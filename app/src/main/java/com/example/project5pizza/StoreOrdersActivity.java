@@ -33,6 +33,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
     int orderPosition;
     StoreOrder temp;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    StoreOrder storeOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
         cancelOrder = (Button)findViewById(R.id.cancelOrder);
         total = (TextView)findViewById(R.id.total);
 
-        StoreOrder storeOrder = new StoreOrder();
-        temp = storeOrder;
+        storeOrder = new StoreOrder();
         Intent intent = getIntent();
         int size = intent.getIntExtra("Size", -1);
         for (int i = 0; i < size; i++){
@@ -159,7 +159,19 @@ public class StoreOrdersActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(MainActivity.FAILED_RESULT, null);
+                Intent intent = getIntent();
+                for (int i = 0; i < storeOrder.getOrderList().size() ; i++){
+                    Order tempOrder = storeOrder.getOrderList().get(i);
+                    ArrayList<Pizza> tempMain = tempOrder.getPizzaList();
+                    ArrayList<String> toMain = new ArrayList<>();
+                    for (Pizza pizza: tempMain){
+                        toMain.add(pizza.toString());
+                    }
+                    intent.putStringArrayListExtra(String.valueOf(i+1), toMain);
+                    intent.putExtra(String.valueOf(-i-1), tempOrder.getSerialNumber());
+                }
+                intent.putExtra("Size", storeOrder.getOrderList().size());
+                setResult(MainActivity.FAILED_RESULT, intent);
                 this.finish();
                 return true;
         }

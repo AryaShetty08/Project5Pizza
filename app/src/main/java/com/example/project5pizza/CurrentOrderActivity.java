@@ -172,7 +172,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
                     pizzaList.add(pizza.toString());
                 }
                 intent.putStringArrayListExtra(MainActivity.ORDER_ARRAYLIST_IDENTIFIER, pizzaList);
-                setResult(MainActivity.FAILED_RESULT, intent);
+                setResult(MainActivity.STORE_ORDER_ACTIVITY_RESULT, intent);
                 this.finish();
                 return true;
         }

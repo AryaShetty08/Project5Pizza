@@ -111,9 +111,15 @@ public class MainActivity extends AppCompatActivity {
                     if (result != null && result.getResultCode() == STORE_ORDER_ACTIVITY_RESULT){
                         Intent intent = result.getData();
                         if (intent != null){
-
-                            currentSerialNumber++;
-                            Toast.makeText(getApplicationContext(), "Something was returned", Toast.LENGTH_LONG).show();
+                            int size = intent.getIntExtra("Size", -1);
+                            for (int i = 0; i < size; i++){
+                                Order order = new Order(intent.getIntExtra(String.valueOf(-i-1), -1));
+                                ArrayList<String> temp = intent.getStringArrayListExtra(String.valueOf(i+1));
+                                for (String str: temp){
+                                    order.add(Pizza.stringToPizza(str));
+                                }
+                                orderList.add(order);
+                            }
                         }
                     }
                 }
