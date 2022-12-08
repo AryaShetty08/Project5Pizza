@@ -57,13 +57,17 @@ public class StoreOrdersActivity extends AppCompatActivity {
         }
 
         ArrayList<String> pizzaInOrder = new ArrayList<>();
-        for(Pizza pizza : storeOrder.getOrderList().get(0).getPizzaList()) {
-            pizzaInOrder.add(pizza.toString());
+        if (!storeOrder.getOrderList().isEmpty()){
+            for(Pizza pizza : storeOrder.getOrderList().get(0).getPizzaList()) {
+                pizzaInOrder.add(pizza.toString());
+            }
+            total.setText("Order Total $" + df.format(storeOrder.getOrderList().get(0).getTotal()));
         }
-
+        else {
+            total.setText("Order Total $");
+        }
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, pizzaInOrder);
         pizzaOrders.setAdapter(arrayAdapter);
-        total.setText("Order Total $" + df.format(storeOrder.getOrderList().get(0).getTotal()));
 
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
