@@ -42,6 +42,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
     ArrayAdapter arrayAdapter;
     ArrayList<String> currentOrder;
 
+    /**
+     * Private helper method to define UI variables with findViewByID()
+     */
     private void setCurrentOrderVariables() {
         pizzaOrder = (ListView)findViewById(R.id.currentPizza);
         removePizza = (Button)findViewById(R.id.cancelOrder);
@@ -53,6 +56,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         orderNumber = (TextView)findViewById(R.id.currentNumber);
     }
 
+    /**
+     * Private helper method to get current order data from main and setup prices and order number
+     * Also makes adapter for list view
+     */
     private void setUpInterface() {
         Intent intent = getIntent();
         currentOrder = intent.getStringArrayListExtra(MainActivity.CURRENT_ORDER_PIZZA_LIST_IDENTIFIER);
@@ -63,9 +70,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
             current.add(Pizza.stringToPizza(pizza));
         }
 
-        subtotal.setText("Subtotal $" + df.format(current.getSubtotal()));
-        salestax.setText("Sales Tax $" + df.format(current.getTax()));
-        ordertotal.setText("Order Total $" + df.format(current.getTotal()));
+        updateTextPrices();
         orderNumber.setText("Order Number: " + current.getSerialNumber());
 
         if(!currentOrder.isEmpty()){
@@ -75,8 +80,18 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Private helper method to setup listener for remove button
+     */
     private void setUpRemoveListener() {
         pizzaOrder.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * Updates instance variable to be the index of the user's currently selected pizza
+             * @param adapterView default onItemClick parameter
+             * @param view default onItemClick parameter
+             * @param i index of currently selected pizza
+             * @param l default onItemClick parameter
+             */
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 pizzaToRemove = i;
@@ -84,6 +99,10 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
 
         removePizza.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Removes pizza from current order and list view when button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 if(pizzaToRemove < currentOrder.size()){
@@ -101,8 +120,15 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Private helper method to setup listener for clear button
+     */
     private void setUpClearListener(){
         clearOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Empties current order and list view when button is clicked
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 currentOrder.clear();
@@ -114,8 +140,17 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Private helper method to setup listener for place order button
+     */
     private void setUpPlaceOrderListener() {
         placeOrder.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Places an Order and returns user to Main Activity
+             * Sends Order data back to main to be
+             * collected as an order in the Store Order
+             * @param view default onClick parameter
+             */
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -142,6 +177,11 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initializes Current Order Activity
+     * Sets up UI Variables, pulls current order data from main activity and button listeners
+     * @param savedInstanceState can be used to reinitialize previous save states
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -156,17 +196,31 @@ public class CurrentOrderActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Private helper method to update text prices
+     */
     private void updateTextPrices() {
         subtotal.setText("Subtotal $" + df.format(current.getSubtotal()));
         salestax.setText("Sales Tax $" + df.format(current.getTax()));
         ordertotal.setText("Order Total $" + df.format(current.getTotal()));
     }
 
+    /**
+     * Private helper method to remove pizza from adapter (for list view)
+     * @param position index of the pizza to remove in the adapter
+     */
     private void removeOnePizza(int position) {
         arrayAdapter.remove(arrayAdapter.getItem(position));
         arrayAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Overrides the back button so that data in main is updated based on changes in this activity
+     * For when clicking the back button to exit the current order view instead of
+     * clicking the place order button
+     * @param item, default parameter needed for method
+     * @return true if button returns to main and is executed properly
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
