@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                  * Stores orders placed in CurrentOrderActivity in an ArrayList
                  * ArrayList will be used when Store Order Activity is launched
                  * to help keep track of all the orders placed
+                 * If Back Button is pressed instead, updates changes to currentOrderPizzaList
                  * @param result Data from CurrentOrderActivity (contains orders that were placed)
                  */
                 @Override
@@ -117,10 +118,9 @@ public class MainActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 /**
-                 * Stores List of Orders in StoreOrdersActivity in an ArrayList
-                 * ArrayList will be used when StoreOrdersActivity is launched and relaunched
-                 * to help save orders that were made
-                 * @param result Data from StoreOrdersActivity (contains orders that were placed)
+                 * Updates list of orders as they were changed in StoreOrdersActivity
+                 * If orders were removed in StoreOrdersActivity, updates orderList to reflect that
+                 * @param result Data from StoreOrdersActivity (contains orders that were not removed)
                  */
                 @Override
                 public void onActivityResult(ActivityResult result) {
@@ -143,8 +143,9 @@ public class MainActivity extends AppCompatActivity {
             });
 
     /**
-     *
-     * @param savedInstanceState
+     * Initializes Main Activity
+     * Sets up ArrayLists to store data and listeners for Image Views
+     * @param savedInstanceState can be used to reinitialize previous save states
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,9 +166,9 @@ public class MainActivity extends AppCompatActivity {
         pizzaOrder = (ImageView)findViewById(R.id.pizzaOrder);
         pizzaOrder.setOnClickListener(new View.OnClickListener() {
             /**
-             * On Click method to switch activities when a button is clicked
-             * This method switches to pizza ordering activity
-             * @param view
+             * Launches Pizza Ordering Activity when button is clicked
+             * Sends results back in Activity Result Launcher above
+             * @param view default onClick parameter
              */
             @Override
             public void onClick(View view) {
@@ -179,9 +180,10 @@ public class MainActivity extends AppCompatActivity {
         currentOrder = (ImageView)findViewById(R.id.currentOrder);
         currentOrder.setOnClickListener(new View.OnClickListener() {
             /**
-             * On Click method to switch activities when a button is clicked
-             * This method switches to current order activity
-             * @param view
+             * Launches Current Order Activity when button is clicked
+             * Sends current order and id to activity as well
+             * Sends results back in Activity Result Launcher above
+             * @param view default onClick parameter
              */
             @Override
             public void onClick(View view) {
@@ -195,9 +197,13 @@ public class MainActivity extends AppCompatActivity {
         storeOrders = (ImageView)findViewById(R.id.storeOrders);
         storeOrders.setOnClickListener(new View.OnClickListener() {
             /**
-             * On Click method to switch activities when a button is clicked
-             * This method switches to store order activity
-             * @param view
+             * Launches Store Orders Activity when button is clicked
+             * Sends store orders through a for loop:
+             *      sends number of orders with NUMBER_OF_ORDERS id
+             *      sends each Order as a String arrayList identified by sequential positive int
+             *      sends each Order id as an int identified by the negative of the arraylist int
+             * Sends results back in Activity Result Launcher above
+             * @param view default onClick parameter
              */
             @Override
             public void onClick(View view) {
